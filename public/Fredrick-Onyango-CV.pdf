@@ -1,0 +1,49 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1253 >>
+stream
+BT
+/F1 24 Tf 1 0 0 1 56 780 Tm (Fredrick Onyango) Tj
+/F1 12 Tf 1 0 0 1 56 748 Tm (Full-Stack Developer | Backend Engineer | AI/ML Engineer) Tj
+/F1 11 Tf 1 0 0 1 56 728 Tm (Kenya - fredrickonyango.dev@example.com \(placeholder\)) Tj
+/F1 12 Tf 1 0 0 1 56 690 Tm (PLACEHOLDER CV - replace this PDF with your real CV.) Tj
+/F1 14 Tf 1 0 0 1 56 651 Tm (PROFILE) Tj
+/F1 11 Tf 1 0 0 1 56 629 Tm (I build intelligent, scalable software solutions that transform) Tj
+/F1 11 Tf 1 0 0 1 56 610 Tm (real-world problems into practical digital products.) Tj
+/F1 14 Tf 1 0 0 1 56 572 Tm (PRODUCTS) Tj
+/F1 11 Tf 1 0 0 1 56 550 Tm (Kilele Archade - AI-powered CBC learning platform \(live\).) Tj
+/F1 11 Tf 1 0 0 1 56 531 Tm (Apex - rental management and property automation \(founder\).) Tj
+/F1 14 Tf 1 0 0 1 56 493 Tm (STACK) Tj
+/F1 11 Tf 1 0 0 1 56 471 Tm (Java, JavaScript, TypeScript, Python, SQL, C, C++) Tj
+/F1 11 Tf 1 0 0 1 56 452 Tm (React, Next.js, React Native - Spring Boot, Node.js, Express, Django) Tj
+/F1 11 Tf 1 0 0 1 56 433 Tm (PostgreSQL, MySQL, MongoDB, Supabase, pgvector) Tj
+/F1 11 Tf 1 0 0 1 56 414 Tm (ML, GenAI, RAG, embeddings, vector search, LLM integration, CV) Tj
+/F1 11 Tf 1 0 0 1 56 395 Tm (Docker, Git, Linux, Cloudflare, Render, CI/CD) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001546 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1616
+%%EOF
