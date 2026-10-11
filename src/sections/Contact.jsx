@@ -1,15 +1,31 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import { profile } from '../data/site.js'
 
-// No backend here: submissions open a pre-filled email to the address above.
-// The honeypot field deters naive bot spam.
+const EMAILJS = {
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+}
+const emailjsConfigured = Boolean(EMAILJS.serviceId && EMAILJS.templateId && EMAILJS.publicKey)
+
+// Sends through EmailJS when configured (stays on the page); otherwise falls
+// back to opening the visitor's mail client. The honeypot field deters naive bot spam.
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '', company: '' })
   const [error, setError] = useState('')
+  const [status, setStatus] = useState('idle') // idle | sending | sent | fallback
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
-  function onSubmit(e) {
+  function mailtoFallback() {
+    const subject = encodeURIComponent(`Portfolio message from ${form.name}`)
+    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
+    setStatus('fallback')
+  }
+
+  async function onSubmit(e) {
     e.preventDefault()
     if (form.company) return // bot silently dropped
     if (!form.name.trim() || !form.email.trim() || form.message.trim().length < 10) {
@@ -17,9 +33,30 @@ export default function Contact() {
       return
     }
     setError('')
-    const subject = encodeURIComponent(`Portfolio message from ${form.name}`)
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
+    if (!emailjsConfigured) {
+      mailtoFallback()
+      return
+    }
+    setStatus('sending')
+    try {
+      await emailjs.send(
+        EMAILJS.serviceId,
+        EMAILJS.templateId,
+        {
+          to_email: profile.email,
+          from_name: form.name,
+          reply_to: form.email,
+          message: form.message,
+        },
+        { publicKey: EMAILJS.publicKey },
+      )
+      setStatus('sent')
+      setForm({ name: '', email: '', message: '', company: '' })
+    } catch {
+      setStatus('idle')
+      setError('Could not send the message just now — falling back to your email app.')
+      mailtoFallback()
+    }
   }
 
   const channels = [
@@ -59,13 +96,27 @@ export default function Contact() {
             )}
 
             <div className="btn-row">
-              <button className="btn btn--primary" type="submit">
-                Send Message
+              <button className="btn btn--primary" type="submit" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Sending…' : 'Send Message'}
               </button>
             </div>
-            <p className="form-note">
-              Opens your email app with the message ready to send. Response time: within a couple of days.
-            </p>
+            {status === 'sent' && (
+              <p role="status" style={{ color: 'var(--success, #4ade80)', fontSize: '0.9rem' }}>
+                Message sent — thank you. I usually reply within a couple of days.
+              </p>
+            )}
+            {status === 'fallback' && !error && (
+              <p className="form-note">
+                Your email app opened with the message ready to send — just hit send there.
+              </p>
+            )}
+            {status !== 'fallback' && (
+              <p className="form-note">
+                {emailjsConfigured
+                  ? 'Messages are delivered straight to my inbox. Response time: within a couple of days.'
+                  : 'Opens your email app with the message ready to send. Response time: within a couple of days.'}
+              </p>
+            )}
           </form>
 
           <ul className="contact-channels">
