@@ -14,7 +14,7 @@ export const profile = {
     "I build intelligent, scalable software solutions that transform real-world problems into practical digital products.",
   heroSupporting:
     "From system architecture and backend engineering to AI integration, databases, cloud infrastructure, and modern frontend development, I build technology with a focus on usability, scalability, and real-world impact.",
-  email: "fredrickonyango.dev@example.com", // TODO: real email
+  email: "onyangofred1005@gmail.com",
   cvPath: "/Fredrick-Onyango-CV.pdf",
   github: "https://github.com/FredTechDev", // TODO: verify username
   linkedin: "https://www.linkedin.com/in/fredrickonyango", // TODO: verify slug
@@ -43,7 +43,7 @@ export const philosophy = [
 export const skillGroups = [
   {
     category: "Programming Languages",
-    items: ["Java", "JavaScript", "TypeScript", "Python", "SQL", "C", "C++"],
+    items: ["Java", "JavaScript", "TypeScript", "Python", "Go", "SQL", "C", "C++"],
   },
   {
     category: "Backend",

@@ -159,7 +159,7 @@ export const projects = [
         "Apex is in active development with the core property, tenant and payment modules built, being hardened with real landlords before public launch. The live product is at apexstates.cinecreatives.org; administrative credentials and private dashboards are never exposed from this portfolio.",
       links: [
         { label: "Live Demo", href: "https://apexstates.cinecreatives.org" },
-        { label: "Case study enquiry", href: "mailto:fredrickonyango.dev@example.com?subject=Apex%20enquiry" }, // TODO: real email
+        { label: "Case study enquiry", href: "mailto:onyangofred1005@gmail.com?subject=Apex%20enquiry" },
       ],
     },
   },
