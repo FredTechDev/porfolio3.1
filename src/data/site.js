@@ -3,7 +3,7 @@
 // Search for "TODO" below and replace every placeholder with the real value.
 // ---------------------------------------------------------------------------
 
-export const SITE_URL = "https://fredrickonyango.dev"; // TODO: final domain
+export const SITE_URL = "https://fredrickonyango.vercel.app"; // TODO: final domain
 
 export const profile = {
   name: "Fredrick Onyango",
