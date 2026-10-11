@@ -16,7 +16,10 @@ export default function Contact() {
   const [error, setError] = useState('')
   const [status, setStatus] = useState('idle') // idle | sending | sent | fallback
 
-  const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  const update = (k) => (e) => {
+    setForm((f) => ({ ...f, [k]: e.target.value }))
+    setStatus((s) => (s === 'sent' ? 'idle' : s))
+  }
 
   function mailtoFallback() {
     const subject = encodeURIComponent(`Portfolio message from ${form.name}`)
@@ -96,8 +99,13 @@ export default function Contact() {
             )}
 
             <div className="btn-row">
-              <button className="btn btn--primary" type="submit" disabled={status === 'sending'}>
-                {status === 'sending' ? 'Sending…' : 'Send Message'}
+              <button
+                className={`btn btn--primary send-btn${status === 'sent' ? ' send-btn--sent' : ''}`}
+                type="submit"
+                disabled={status === 'sending'}
+              >
+                {status === 'sending' && <span className="btn-spinner" aria-hidden="true" />}
+                {status === 'sending' ? 'Sending…' : status === 'sent' ? '✓ Sent' : 'Send Message'}
               </button>
             </div>
             {status === 'sent' && (

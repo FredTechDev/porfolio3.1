@@ -206,6 +206,53 @@ code {
   font-size: 0.85rem;
 }
 
+/* Send button states -------------------------------------------------------- */
+
+.send-btn {
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+.send-btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
+}
+.send-btn:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+.btn--primary.send-btn--sent,
+.btn--primary.send-btn--sent:hover {
+  background: var(--success);
+  color: #05230f;
+  animation: send-pop 0.3s ease;
+}
+@keyframes send-pop {
+  0% { transform: scale(0.94); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.btn-spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-top-color: currentColor;
+  animation: btn-spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .send-btn:active:not(:disabled),
+  .send-btn--sent {
+    transform: none;
+    animation: none;
+  }
+}
+
 .btn-row {
   display: flex;
   flex-wrap: wrap;
