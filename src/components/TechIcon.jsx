@@ -1,0 +1,76 @@
+import {
+  SiC,
+  SiCplusplus,
+  SiCloudflare,
+  SiDjango,
+  SiDocker,
+  SiExpress,
+  SiGithub,
+  SiGit,
+  SiGo,
+  SiJavascript,
+  SiLinux,
+  SiMongodb,
+  SiMysql,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiOpenjdk,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiRender,
+  SiSpringboot,
+  SiSupabase,
+  SiTypescript,
+} from 'react-icons/si'
+import { GiArtificialIntelligence, GiBrain, GiCyberEye } from 'react-icons/gi'
+import { LuBrainCircuit, LuDatabase, LuInfinity, LuScanEye, LuWorkflow } from 'react-icons/lu'
+
+const ICONS = {
+  Java: SiOpenjdk,
+  JavaScript: SiJavascript,
+  TypeScript: SiTypescript,
+  Python: SiPython,
+  Go: SiGo,
+  SQL: LuDatabase,
+  C: SiC,
+  'C++': SiCplusplus,
+  'Spring Boot': SiSpringboot,
+  'Node.js': SiNodedotjs,
+  'Express.js': SiExpress,
+  'Express': SiExpress,
+  Django: SiDjango,
+  React: SiReact,
+  'Next.js': SiNextdotjs,
+  'React Native': SiReact,
+  PostgreSQL: SiPostgresql,
+  MySQL: SiMysql,
+  MongoDB: SiMongodb,
+  Supabase: SiSupabase,
+  pgvector: LuDatabase,
+  'Machine Learning': GiBrain,
+  'Generative AI': GiArtificialIntelligence,
+  RAG: LuBrainCircuit,
+  Embeddings: LuInfinity,
+  'Vector Search': LuScanEye,
+  'LLM Integration': GiArtificialIntelligence,
+  'LLM APIs': GiArtificialIntelligence,
+  'AI APIs': LuWorkflow,
+  'Computer Vision': GiCyberEye,
+  OpenCV: GiCyberEye,
+  Docker: SiDocker,
+  Git: SiGit,
+  GitHub: SiGithub,
+  Linux: SiLinux,
+  Cloudflare: SiCloudflare,
+  Render: SiRender,
+  'CI/CD': LuWorkflow,
+  ESP32: GiArtificialIntelligence,
+}
+
+// Concepts like RAG or CI/CD have no brand mark, so callers must handle a
+// missing icon — the chip then renders as text alone.
+export default function TechIcon({ name }) {
+  const Icon = ICONS[name]
+  return Icon ? <Icon aria-hidden="true" /> : null
+}

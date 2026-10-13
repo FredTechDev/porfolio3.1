@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import ProjectVisual from './ProjectVisual.jsx'
+import TechIcon from './TechIcon.jsx'
 
 export default function ProjectCard({ project, visual = 'generic' }) {
   return (
@@ -18,7 +19,8 @@ export default function ProjectCard({ project, visual = 'generic' }) {
 
         <div className="tag-row" aria-label="Technology stack">
           {project.stack.slice(0, 6).map((t) => (
-            <span className="chip" key={t}>
+            <span className="chip chip--icon" key={t}>
+              <TechIcon name={t} />
               {t}
             </span>
           ))}

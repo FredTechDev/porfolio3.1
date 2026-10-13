@@ -1,4 +1,5 @@
 import { labExperiments } from '../data/lab.js'
+import TechIcon from '../components/TechIcon.jsx'
 
 export default function LabSection() {
   return (
@@ -13,7 +14,8 @@ export default function LabSection() {
               </p>
               <div className="tag-row" style={{ marginBottom: '0.9rem' }}>
                 {x.stack.map((t) => (
-                  <span className="chip" key={t}>
+                  <span className="chip chip--icon" key={t}>
+                    <TechIcon name={t} />
                     {t}
                   </span>
                 ))}

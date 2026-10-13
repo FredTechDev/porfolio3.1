@@ -1,5 +1,6 @@
 import { skillGroups } from '../data/site.js'
 import SectionHeading from '../components/SectionHeading.jsx'
+import TechIcon from '../components/TechIcon.jsx'
 
 export default function TechStack() {
   return (
@@ -16,7 +17,8 @@ export default function TechStack() {
               <h3>{g.category}</h3>
               <div className="tag-row">
                 {g.items.map((t) => (
-                  <span className="chip" key={t}>
+                  <span className="chip chip--icon" key={t}>
+                    <TechIcon name={t} />
                     {t}
                   </span>
                 ))}

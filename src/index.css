@@ -273,6 +273,17 @@ code {
   font-family: var(--mono);
 }
 
+.chip--icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chip--icon svg {
+  font-size: 0.95em;
+  flex: none;
+}
+
 .chip--accent {
   border-color: var(--accent);
   color: var(--accent);

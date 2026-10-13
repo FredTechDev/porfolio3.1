@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { projects, otherProjects, projectFilters } from '../data/projects.js'
 import ProjectCard from '../components/ProjectCard.jsx'
+import TechIcon from '../components/TechIcon.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
 import { usePageSeo, buildProductSchema } from '../components/usePageSeo.js'
 import { SITE_URL } from '../data/site.js'
@@ -98,7 +99,8 @@ export default function Projects() {
                     </p>
                     <div className="tag-row" style={{ marginBottom: '0.9rem' }}>
                       {p.stack.map((t) => (
-                        <span className="chip" key={t}>
+                        <span className="chip chip--icon" key={t}>
+                          <TechIcon name={t} />
                           {t}
                         </span>
                       ))}

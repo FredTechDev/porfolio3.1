@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { getProject } from '../data/projects.js'
 import ProjectVisual from '../components/ProjectVisual.jsx'
+import TechIcon from '../components/TechIcon.jsx'
 import FlowDiagram from '../components/FlowDiagram.jsx'
 import NotFound from './NotFound.jsx'
 import { usePageSeo, buildProductSchema, buildSoftwareSourceCodeSchema } from '../components/usePageSeo.js'
@@ -140,7 +141,8 @@ export default function ProjectDetail() {
         <CaseSection title="Technology stack">
           <div className="tag-row">
             {project.stack.map((t) => (
-              <span className="chip" key={t}>
+              <span className="chip chip--icon" key={t}>
+                <TechIcon name={t} />
                 {t}
               </span>
             ))}
