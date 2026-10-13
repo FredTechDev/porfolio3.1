@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { projects, otherProjects } from '../data/projects.js'
+import { projects, otherProjects, projectFilters } from '../data/projects.js'
 import ProjectCard from '../components/ProjectCard.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
 import { usePageSeo, buildProductSchema } from '../components/usePageSeo.js'
@@ -8,6 +9,7 @@ import { SITE_URL } from '../data/site.js'
 const visuals = { 'kilele-archade': 'edu', apex: 'prop', mediflow: 'med' }
 
 export default function Projects() {
+  const [filter, setFilter] = useState('all')
   const featuredProducts = projects.filter((p) => p.featured).map(buildProductSchema)
   usePageSeo({
     title: 'Projects — Fredrick Onyango | Full-Stack, AI/ML & Backend Engineering Portfolio',
@@ -31,6 +33,12 @@ export default function Projects() {
     lastmod: '2026-01-15',
   })
 
+  const visibleProjects =
+    filter === 'all' ? projects : projects.filter((p) => p.filters.includes(filter))
+  const visibleGroups =
+    filter === 'all' ? otherProjects : otherProjects.filter((g) => g.filters.includes(filter))
+  const shown = visibleProjects.length + visibleGroups.reduce((n, g) => n + g.items.length, 0)
+
   return (
     <>
       <div className="page-head container">
@@ -41,15 +49,36 @@ export default function Projects() {
         </p>
       </div>
 
-      <section className="section" style={{ paddingTop: '1.5rem' }} aria-label="Featured projects">
-        <div className="container">
-          <div className="grid grid--3">
-            {projects.map((p) => (
-              <ProjectCard key={p.slug} project={p} visual={visuals[p.slug]} />
-            ))}
-          </div>
+      <div className="container">
+        <div className="filter-bar" role="group" aria-label="Filter projects by focus area">
+          {projectFilters.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              className={`chip chip--filter${filter === f.id ? ' chip--filter-active' : ''}`}
+              aria-pressed={filter === f.id}
+              onClick={() => setFilter(f.id)}
+            >
+              {f.label}
+            </button>
+          ))}
+          <span className="filter-count" role="status">
+            {shown} {shown === 1 ? 'project' : 'projects'}
+          </span>
         </div>
-      </section>
+      </div>
+
+      {visibleProjects.length > 0 && (
+        <section className="section" style={{ paddingTop: '1.5rem' }} aria-label="Featured projects">
+          <div className="container">
+            <div className="grid grid--3">
+              {visibleProjects.map((p) => (
+                <ProjectCard key={p.slug} project={p} visual={visuals[p.slug]} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section section--alt" aria-label="Other work" style={{ marginTop: 0 }}>
         <div className="container">
@@ -57,7 +86,7 @@ export default function Projects() {
             Smaller projects where GitHub and a live demo are enough evidence.
           </SectionHeading>
 
-          {otherProjects.map((group) => (
+          {visibleGroups.map((group) => (
             <div key={group.category} style={{ marginBottom: '2.5rem' }}>
               <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>{group.category}</h2>
               <div className="grid grid--3">

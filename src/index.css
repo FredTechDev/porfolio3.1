@@ -279,6 +279,41 @@ code {
   background: var(--accent-soft);
 }
 
+/* Project filter bar --------------------------------------------------------- */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.chip--filter {
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.chip--filter:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.chip--filter-active,
+.chip--filter-active:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.filter-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;

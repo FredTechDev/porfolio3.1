@@ -3,6 +3,19 @@
 // TODO markers indicate facts to confirm before launch (repo URLs, dates).
 // ---------------------------------------------------------------------------
 
+// Shared taxonomy for the /projects filter. Featured projects declare their
+// own; secondary groups inherit theirs from the category, so one filter bar
+// spans both sections.
+export const projectFilters = [
+  { id: "all", label: "All work" },
+  { id: "ai", label: "AI / ML" },
+  { id: "backend", label: "Backend" },
+  { id: "fullstack", label: "Full-stack" },
+  { id: "data", label: "Data" },
+  { id: "iot", label: "IoT" },
+  { id: "product", label: "Product" },
+];
+
 export const projects = [
   {
     slug: "kilele-archade",
@@ -14,6 +27,7 @@ export const projects = [
     problem:
       "Kenyan CBC students need guided, curriculum-aware learning support that goes beyond static notes — help that adapts to the learner, the subject and the competence being worked on.",
     tags: ["EdTech", "AI", "RAG", "Full-stack"],
+    filters: ["ai", "fullstack", "product"],
     stack: [
       "React",
       "TypeScript",
@@ -96,6 +110,7 @@ export const projects = [
     problem:
       "Small and mid-size landlords and property managers track rents, vacancies and repairs in notebooks and spreadsheets — leading to missed payments, lost tenant records and no operational visibility.",
     tags: ["PropTech", "SaaS", "Automation", "Founder"],
+    filters: ["backend", "fullstack", "product"],
     stack: [
       "React",
       "TypeScript",
@@ -173,6 +188,7 @@ export const projects = [
     problem:
       "Small clinics juggle paper registers for appointments and patient follow-ups, creating queues and lost history.",
     tags: ["HealthTech", "Backend", "Full-stack"],
+    filters: ["backend", "fullstack"],
     stack: ["React", "Node.js", "Express", "PostgreSQL"],
     live: null, // TODO: demo URL if deployed
     repo: "https://github.com/FredTechDev/mediflow", // TODO: confirm
@@ -207,6 +223,7 @@ export const projects = [
 export const otherProjects = [
   {
     category: "AI / Machine Learning",
+    filters: ["ai"],
     items: [
       {
         name: "CourseMate RAG Explorer",
@@ -235,6 +252,7 @@ export const otherProjects = [
   },
   {
     category: "Data",
+    filters: ["data"],
     items: [
       {
         name: "County Data Dashboard",
@@ -255,6 +273,7 @@ export const otherProjects = [
   },
   {
     category: "Software Engineering",
+    filters: ["backend"],
     items: [
       {
         name: "Ledger API",
@@ -281,6 +300,7 @@ export const otherProjects = [
   },
   {
     category: "IoT",
+    filters: ["iot"],
     items: [
       {
         name: "ESP32 Weather Node",
@@ -294,6 +314,7 @@ export const otherProjects = [
   },
   {
     category: "Hackathons",
+    filters: ["product"],
     items: [
       {
         name: "Hackathon prototypes",
