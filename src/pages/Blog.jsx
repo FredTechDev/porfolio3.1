@@ -1,13 +1,33 @@
 import { Link } from 'react-router-dom'
 import { posts } from '../data/blog.js'
 import { usePageSeo } from '../components/usePageSeo.js'
+import { SITE_URL } from '../data/site.js'
 
 export default function Blog() {
   usePageSeo({
-    title: 'Blog — Fredrick Onyango',
+    title: 'Blog — Fredrick Onyango | AI Engineering, System Architecture & Software Development',
     description:
-      'Technical writing by Fredrick Onyango on AI engineering, RAG, PostgreSQL, system architecture and building production software.',
+      'Technical writing by Fredrick Onyango on AI engineering, RAG pipelines, PostgreSQL/pgvector, system architecture, and building production software. Lessons from building Kilele Archade and Apex.',
     path: '/blog',
+    type: 'Blog',
+    extraSchema: {
+      '@type': 'Blog',
+      name: 'Fredrick Onyango — Technical Blog',
+      description: 'Technical writing on AI engineering, RAG, system architecture and building production software',
+      author: {
+        '@type': 'Person',
+        name: 'Fredrick Onyango',
+        url: SITE_URL,
+      },
+      blogPost: posts.map((p) => ({
+        '@type': 'BlogPosting',
+        headline: p.title,
+        url: `${SITE_URL}/blog/${p.slug}`,
+        datePublished: p.date,
+        author: { '@type': 'Person', name: p.author },
+      })),
+    },
+    lastmod: posts[0]?.date || '2026-01-15',
   })
 
   return (

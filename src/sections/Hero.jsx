@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Availability from '../components/Availability.jsx'
 import { profile } from '../data/site.js'
 
 export default function Hero() {
@@ -13,6 +14,8 @@ export default function Hero() {
           <p className="hero-role">{profile.role}</p>
           <p className="hero-tagline">{profile.tagline}</p>
           <p className="hero-supporting">{profile.heroSupporting}</p>
+
+          <Availability />
 
           <div className="btn-row">
             <a className="btn btn--primary" href="#projects">

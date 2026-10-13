@@ -3,7 +3,7 @@ import { getProject } from '../data/projects.js'
 import ProjectVisual from '../components/ProjectVisual.jsx'
 import FlowDiagram from '../components/FlowDiagram.jsx'
 import NotFound from './NotFound.jsx'
-import { usePageSeo } from '../components/usePageSeo.js'
+import { usePageSeo, buildProductSchema, buildSoftwareSourceCodeSchema } from '../components/usePageSeo.js'
 import { profile, SITE_URL } from '../data/site.js'
 
 const visuals = { 'kilele-archade': 'edu', apex: 'prop', mediflow: 'med' }
@@ -21,23 +21,48 @@ export default function ProjectDetail() {
   const { slug } = useParams()
   const project = getProject(slug)
 
+  const productSchema = project ? buildProductSchema(project) : undefined
+  const repoSchema = project?.repo
+    ? buildSoftwareSourceCodeSchema({
+        name: `${project.name} Source Code`,
+        description: project.summary,
+        repoUrl: project.repo,
+        language: project.stack.find((s) => ['TypeScript', 'JavaScript', 'Python', 'Java', 'Go', 'C++', 'C'].includes(s)) || 'TypeScript',
+        datePublished: '2025-01-01',
+      })
+    : undefined
+
   usePageSeo({
     title: project ? `${project.name} — Case Study | Fredrick Onyango` : 'Project not found',
     description: project
-      ? `${project.summary} Problem, solution, architecture and results for ${project.name}.`
+      ? `${project.summary} Problem, solution, architecture and results for ${project.name}. Built with ${project.stack.slice(0, 5).join(', ')}.`
       : 'Project not found',
     path: `/projects/${slug}`,
-    jsonLd: project
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'SoftwareApplication',
-          name: project.name,
-          description: project.summary,
-          applicationCategory: 'DeveloperApplication',
-          ...(project.live && !project.live.includes('example.com') ? { url: project.live } : {}),
-          author: { '@type': 'Person', name: profile.name },
-        }
-      : undefined,
+    type: 'SoftwareApplication',
+    extraSchema: {
+      '@type': 'SoftwareApplication',
+      name: project?.name,
+      description: project?.summary,
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Cloud, Web, Cross-platform',
+      ...(project?.live && !project.live.includes('example.com') ? { url: project.live } : {}),
+      author: { '@type': 'Person', name: profile.name },
+      offers: project?.live && !project.live.includes('example.com')
+        ? {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'KES',
+            availability: 'https://schema.org/InStock',
+            url: project.live,
+          }
+        : undefined,
+      featureList: project?.caseStudy?.features || [],
+      softwareVersion: '1.0',
+      datePublished: '2025-01-01',
+      keywords: project?.stack.join(', '),
+    },
+    jsonLd: [productSchema, repoSchema].filter(Boolean),
+    lastmod: '2026-01-15',
   })
 
   if (!project) return <NotFound />

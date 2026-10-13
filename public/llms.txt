@@ -1,0 +1,142 @@
+# Fredrick Onyango — Portfolio
+> Full-Stack Developer, Backend Engineer & AI/ML Engineer based in Kenya. Building intelligent, scalable products including Kilele Archade (AI EdTech) and Apex (PropTech).
+
+## About
+Fredrick Onyango is a Kenya-based software engineer specializing in full-stack development, backend engineering, and AI/ML engineering. He builds production systems with React, TypeScript, Python, Java, PostgreSQL, and modern cloud infrastructure. His work spans EdTech (Kilele Archade), PropTech (Apex), HealthTech (MediFlow), and AI/ML experiments.
+
+**Location:** Nairobi, Kenya
+**Available for:** Remote work globally, Kenya-based opportunities
+**Contact:** onyangofred1005@gmail.com | GitHub: @FredTechDev | LinkedIn: fredrickonyango
+
+## Featured Products
+
+### Kilele Archade — AI-Powered CBC Learning Platform
+- **URL:** https://kilelearchade.co.ke
+- **Case Study:** https://fredrickonyango.vercel.app/projects/kilele-archade
+- **Description:** An AI-powered CBC-focused learning platform providing intelligent learning assistance, revision, assessments, educational resources and personalized learning. Features RAG pipeline with pgvector, curriculum-aware AI tutor, document-based Q&A, quizzes, student/teacher/parent dashboards.
+- **Tech Stack:** React, TypeScript, Supabase, PostgreSQL, pgvector, Cloudinary, Cloudflare AI, RAG, Embeddings, Vector Search
+- **Role:** Full-stack developer — architecture, AI pipeline, backend and frontend
+- **Status:** Live product
+
+### Apex — Rental Management & Property Automation Platform
+- **URL:** https://apexstates.cinecreatives.org
+- **Case Study:** https://fredrickonyango.vercel.app/projects/apex
+- **Description:** A rental management and property automation platform simplifying property, tenant, payment, reporting, communication and operational workflows. Multi-tenant, role-based access, M-PESA integration, SMS notifications.
+- **Tech Stack:** React, TypeScript, Node.js, PostgreSQL, M-PESA Daraja API, SMS integration, Cloud hosting
+- **Role:** Founder & lead developer — product concept, architecture and core implementation
+- **Status:** In active development
+
+### MediFlow — Clinic Workflow Prototype
+- **Case Study:** https://fredrickonyango.vercel.app/projects/mediflow
+- **Description:** A clinic workflow prototype for patient records, appointments and queue management — built to explore appointment scheduling and role-scoped clinical data.
+- **Tech Stack:** React, Node.js, Express, PostgreSQL
+- **Role:** Sole developer
+- **Status:** Prototype
+
+## Technical Blog Posts
+
+### Building a RAG System for an Educational Platform
+- **URL:** https://fredrickonyango.vercel.app/blog/building-a-rag-system-for-an-educational-platform
+- **Date:** 2026-06-18
+- **Category:** AI Engineering
+- **Summary:** How Kilele Archade grounds its AI tutor in actual curriculum documents — ingestion, chunking, pgvector retrieval and provider fallback — instead of letting a model answer from memory.
+- **Key Topics:** RAG, pgvector, Embeddings, Chunking, Retrieval, Re-ranking, LLM Provider Fallback, AI in Education
+
+### Designing AI-Powered Learning Systems
+- **URL:** https://fredrickonyango.vercel.app/blog/designing-ai-powered-learning-systems
+- **Date:** 2026-04-30
+- **Category:** AI Engineering
+- **Summary:** What building Kilele Archade taught me about where AI genuinely helps learners — and where plain software engineering does the job better.
+- **Key Topics:** AI in Education, Product Design, Assessment Integrity, Human-in-the-loop, Engineering Loop
+
+### PostgreSQL and pgvector for AI Applications
+- **URL:** https://fredrickonyango.vercel.app/blog/postgresql-and-pgvector-for-ai-applications
+- **Date:** 2026-02-14
+- **Category:** Databases
+- **Summary:** Why I chose to keep vectors and relational data in one PostgreSQL database — and what that trade actually costs and saves.
+- **Key Topics:** PostgreSQL, pgvector, Vector Databases, Database Architecture, Embeddings, Indexing
+
+## Lab Experiments (Open Source)
+
+### ESP32 Smart Weather System
+- **Repo:** https://github.com/FredTechDev/esp32-weather
+- **Description:** IoT experiment using environmental sensors, MQTT, and cloud services to collect and process environmental data.
+- **Stack:** ESP32, MQTT, C++, Cloud
+
+### RAG Strategy Bench
+- **Repo:** https://github.com/FredTechDev/rag-explorer
+- **Description:** Side-by-side evaluation of chunk sizes, embedding models and retrieval strategies on the same document set.
+- **Stack:** Python, pgvector, LLM APIs
+
+### AI Provider Fallback Harness
+- **Repo:** https://github.com/FredTechDev/provider-fallback
+- **Description:** Test rig that simulates provider failures to verify transparent failover across LLM backends.
+- **Stack:** Node.js, TypeScript, LLM APIs
+
+### Computer Vision Attendance
+- **Repo:** https://github.com/FredTechDev/vision-attendance
+- **Description:** Face-embedding based attendance prototype with all processing kept on-device.
+- **Stack:** Python, OpenCV
+
+### Automation Scripts Collection
+- **Repo:** https://github.com/FredTechDev/automation
+- **Description:** Deployment, data-cleaning and repo-automation scripts that removed daily manual chores.
+- **Stack:** Bash, Python, CI/CD
+
+## Skills & Expertise
+
+**Programming Languages:** Java, JavaScript, TypeScript, Python, Go, SQL, C, C++
+**Backend:** Spring Boot, Node.js, Express.js, Django
+**Frontend:** React, Next.js, React Native
+**Databases:** PostgreSQL, MySQL, MongoDB, Supabase, pgvector
+**AI/ML:** Machine Learning, Generative AI, RAG, Embeddings, Vector Search, LLM Integration, AI APIs, Computer Vision
+**Cloud/DevOps:** Docker, Git, GitHub, Linux, Cloudflare, Render, CI/CD
+
+## Experience
+
+### Cine Creatives — Developer (2025 — Present)
+Full-stack development, backend services, third-party API integrations, deployments. Technologies: JavaScript/TypeScript, React, Node.js, PostgreSQL, cloud hosting.
+
+### Apex — Founder & Lead Innovator (2025 — Present)
+Product concept, system architecture, core technical decisions. Multi-tenant data models, role-based access control, payment workflows, M-PESA integration.
+
+### Kilele Archade — Developer / Builder (2025 — Present)
+End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScript frontend, Supabase/PostgreSQL backend, AI provider fallback, Cloudinary integration.
+
+## Other Projects (Secondary)
+
+**AI/ML:** CourseMate RAG Explorer, Vision Attendance Prototype, Marketsignal Predictor
+**Data:** County Data Dashboard, Querybench (PostgreSQL indexing playground)
+**Software Engineering:** Ledger API (Spring Boot), Devflow CLI, Sync Mobile App (React Native)
+**IoT:** ESP32 Weather Node
+**Hackathons:** Multiple rapid prototypes
+
+## Site Navigation
+- **Home:** https://fredrickonyango.vercel.app/
+- **About:** https://fredrickonyango.vercel.app/about
+- **Projects:** https://fredrickonyango.vercel.app/projects
+- **Experience:** https://fredrickonyango.vercel.app/experience
+- **AI & Engineering:** https://fredrickonyango.vercel.app/ai-engineering
+- **Lab:** https://fredrickonyango.vercel.app/lab
+- **Blog:** https://fredrickonyango.vercel.app/blog
+- **Contact:** https://fredrickonyango.vercel.app/contact
+
+## Structured Data Available
+- Person (Fredrick Onyango)
+- Organization (Fredrick Onyango)
+- WebSite
+- WebPage (all pages)
+- BreadcrumbList (all pages)
+- SoftwareApplication (project case studies)
+- Product (Kilele Archade, Apex)
+- SoftwareSourceCode (GitHub repositories)
+- BlogPosting (blog posts)
+- Blog (blog index)
+- CollectionPage (projects, lab, blog)
+- ProfilePage (home, about)
+- ContactPage (contact)
+- FAQPage (blog posts)
+- ItemList (project collections, experience)
+
+## Keywords for Search
+Fredrick Onyango, Full-Stack Developer Kenya, Backend Engineer Kenya, AI/ML Engineer Kenya, Software Engineer Nairobi, Kilele Archade, Apex, RAG Engineering, pgvector, AI EdTech Kenya, PropTech Kenya, Remote Software Engineer Africa, Hire AI Engineer Kenya

@@ -2,16 +2,33 @@ import { Link } from 'react-router-dom'
 import { projects, otherProjects } from '../data/projects.js'
 import ProjectCard from '../components/ProjectCard.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
-import { usePageSeo } from '../components/usePageSeo.js'
+import { usePageSeo, buildProductSchema } from '../components/usePageSeo.js'
+import { SITE_URL } from '../data/site.js'
 
 const visuals = { 'kilele-archade': 'edu', apex: 'prop', mediflow: 'med' }
 
 export default function Projects() {
+  const featuredProducts = projects.filter((p) => p.featured).map(buildProductSchema)
   usePageSeo({
-    title: 'Projects — Fredrick Onyango',
+    title: 'Projects — Fredrick Onyango | Full-Stack, AI/ML & Backend Engineering Portfolio',
     description:
-      'Software projects by Fredrick Onyango: Kilele Archade, Apex and selected AI, data, engineering and IoT work with case studies and source.',
+      'Explore Fredrick Onyango\'s software projects: Kilele Archade (AI EdTech), Apex (PropTech rental management), MediFlow (HealthTech), plus AI, data engineering and IoT experiments. Full case studies with architecture, stack and results.',
     path: '/projects',
+    type: 'CollectionPage',
+    extraSchema: {
+      '@type': 'ItemList',
+      name: 'Software Projects Portfolio',
+      description: 'Collection of full-stack, AI/ML, backend and IoT projects by Fredrick Onyango',
+      itemListElement: projects
+        .filter((p) => p.featured)
+        .map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${SITE_URL}/projects/${p.slug}`,
+          name: p.name,
+        })),
+    },
+    lastmod: '2026-01-15',
   })
 
   return (

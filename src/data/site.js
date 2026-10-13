@@ -20,6 +20,14 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/fredrickonyango", // TODO: verify slug
 };
 
+export const availability = {
+  open: true,
+  label: "Available for remote work",
+  detail: "Kenya-based · open to freelance projects and full-time roles",
+  closedLabel: "Currently on engagements",
+  closedDetail: "Kenya-based · limited availability for new projects",
+};
+
 export const socials = [
   { label: "GitHub", href: profile.github },
   { label: "LinkedIn", href: profile.linkedin },
@@ -27,8 +35,8 @@ export const socials = [
 ];
 
 export const education = {
-  // TODO: confirm institution, dates and qualification details.
-  school: "Institution of Technology, Kenya",
+  // TODO: confirm dates and qualification details.
+  school: "Masinde Muliro University of Science and Technology",
   qualification: "Degree in Information Technology",
   status: "Currently studying",
 };

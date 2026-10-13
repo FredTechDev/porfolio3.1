@@ -3,13 +3,51 @@ import TechStack from '../sections/TechStack.jsx'
 import Achievements from '../sections/Achievements.jsx'
 import PageNav from '../components/PageNav.jsx'
 import { usePageSeo } from '../components/usePageSeo.js'
+import { profile, SITE_URL } from '../data/site.js'
 
 export default function AboutPage() {
   usePageSeo({
-    title: 'About — Fredrick Onyango',
+    title: 'About — Fredrick Onyango | Full-Stack, Backend & AI/ML Engineer from Kenya',
     description:
-      'Who Fredrick Onyango is: background, engineering philosophy, full tech stack and achievements as a full-stack, backend and AI/ML engineer.',
+      'Learn about Fredrick Onyango: background, engineering philosophy, full tech stack (React, TypeScript, Python, Java, PostgreSQL, AI/ML), and achievements as a software engineer building Kilele Archade and Apex.',
     path: '/about',
+    type: 'ProfilePage',
+    extraSchema: {
+      '@type': 'ProfilePage',
+      mainEntity: {
+        '@type': 'Person',
+        name: profile.name,
+        jobTitle: profile.role,
+        url: SITE_URL,
+        email: `mailto:${profile.email}`,
+        address: { '@type': 'PostalAddress', addressCountry: 'KE', addressRegion: 'Nairobi' },
+        knowsAbout: [
+          'Software Engineering',
+          'Full-Stack Development',
+          'Backend Engineering',
+          'AI/ML Engineering',
+          'System Architecture',
+          'Retrieval-Augmented Generation',
+          'PostgreSQL',
+          'Cloud Deployment',
+          'React',
+          'TypeScript',
+          'Python',
+          'Java',
+          'Spring Boot',
+        ],
+        sameAs: [profile.github, profile.linkedin],
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Fredrick Onyango',
+        },
+        alumniOf: {
+          '@type': 'EducationalOrganization',
+          name: 'Masinde Muliro University of Science and Technology',
+        },
+      },
+    },
+    lastmod: '2026-01-15',
   })
 
   return (

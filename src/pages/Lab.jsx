@@ -1,13 +1,39 @@
 import LabSection from '../sections/LabSection.jsx'
 import PageNav from '../components/PageNav.jsx'
-import { usePageSeo } from '../components/usePageSeo.js'
+import { usePageSeo, buildSoftwareSourceCodeSchema } from '../components/usePageSeo.js'
+import { labExperiments } from '../data/lab.js'
+import { SITE_URL } from '../data/site.js'
 
 export default function LabPage() {
+  const repoSchemas = labExperiments.map((exp) =>
+    buildSoftwareSourceCodeSchema({
+      name: exp.name,
+      description: exp.description,
+      repoUrl: exp.repo,
+      language: exp.stack[0],
+      datePublished: '2025-01-01',
+    })
+  )
+
   usePageSeo({
-    title: 'Lab — Fredrick Onyango',
+    title: 'Lab — Fredrick Onyango | AI, IoT & Engineering Experiments with Source Code',
     description:
-      'Experiments and prototypes from Fredrick Onyango’s lab: AI, data and engineering builds with source on GitHub.',
+      "Explore Fredrick Onyango's lab experiments: ESP32 IoT weather systems, RAG strategy benchmarks, AI provider fallback harnesses, computer vision attendance, and automation scripts. All with public GitHub repositories.",
     path: '/lab',
+    type: 'CollectionPage',
+    extraSchema: {
+      '@type': 'ItemList',
+      name: 'Engineering Lab Experiments',
+      description: 'Collection of AI, IoT, data engineering and automation experiments by Fredrick Onyango',
+      itemListElement: labExperiments.map((exp, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: exp.repo,
+        name: exp.name,
+      })),
+    },
+    jsonLd: repoSchemas,
+    lastmod: '2026-01-15',
   })
 
   return (
