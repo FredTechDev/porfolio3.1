@@ -47,12 +47,20 @@ function readMessages(body) {
 }
 
 export default async function handler(req, res) {
+  const apiKey = process.env.GEMINI_API_KEY
+
+  // The widget calls this before it renders. Without it the section would
+  // invite a question that can only fail, and would only disappear after the
+  // visitor had already typed one.
+  if (req.method === 'GET') {
+    return res.status(200).json({ configured: Boolean(apiKey) })
+  }
+
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST')
+    res.setHeader('Allow', 'GET, POST')
     return res.status(405).json({ error: 'method_not_allowed' })
   }
 
-  const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) return res.status(503).json({ error: 'not_configured' })
 
   const messages = readMessages(req.body)

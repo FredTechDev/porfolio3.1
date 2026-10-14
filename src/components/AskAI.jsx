@@ -7,15 +7,31 @@ const STARTERS = [
   'What does your backend stack look like?',
 ]
 
-// Hides the whole section when /api/ask reports it is unconfigured, so a
-// preview deploy without the key shows no broken widget.
+// Renders nothing until /api/ask confirms a key is configured, so a deploy
+// without one shows no broken widget. Local `vite dev` does not serve the
+// function, so the section stays hidden there too.
 export default function AskAI() {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
-  const [enabled, setEnabled] = useState(true)
+  const [status, setStatus] = useState('checking')
   const endRef = useRef(null)
+
+  useEffect(() => {
+    let stale = false
+    fetch('/api/ask')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!stale) setStatus(data?.configured ? 'on' : 'off')
+      })
+      .catch(() => {
+        if (!stale) setStatus('off')
+      })
+    return () => {
+      stale = true
+    }
+  }, [])
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: 'nearest' })
@@ -38,7 +54,7 @@ export default function AskAI() {
         body: JSON.stringify({ messages: history }),
       })
       if (res.status === 503) {
-        setEnabled(false)
+        setStatus('off')
         return
       }
       const data = await res.json().catch(() => null)
@@ -51,7 +67,7 @@ export default function AskAI() {
     }
   }
 
-  if (!enabled) return null
+  if (status !== 'on') return null
 
   return (
     <section className="section section--alt" id="ask" aria-labelledby="ask-title">
