@@ -12,12 +12,14 @@ Built with **Vite + React + React Router**, hand-written CSS design system
 ```bash
 npm install
 npm run dev      # local dev server
-npm run build    # production build → dist/
+npm run build    # client build + prerender → dist/
 npm run preview  # serve the production build
 ```
 
-The site is an SPA: static hosts must rewrite unknown paths to `index.html`
-so `/projects/apex`, `/blog/...`, `/github` etc. resolve.
+Every route is prerendered to real HTML at build (`dist/<route>/index.html`),
+so crawlers and link previews see each page's own title, description, Open
+Graph tags and JSON-LD without executing JavaScript. Client navigation still
+behaves like an SPA.
 
 ## Structure
 
@@ -28,8 +30,15 @@ src/data/lab.js         The Lab experiments
 src/data/blog.js        blog posts
 src/sections/*.jsx      homepage sections (hero → contact, spec order)
 src/pages/*.jsx         routed pages incl. case studies, blog, redirects
-public/                 favicon, robots.txt, sitemap.xml, og-cover.png, CV PDF
+src/seo/routes.js       every page's title, description and structured data
+src/seo/head.js         turns that into meta/link tags + JSON-LD (shared by
+                        the client hook and the prerender build)
+scripts/prerender.mjs   renders each route into dist/ and writes sitemap.xml
+public/                 favicon, robots.txt, llms.txt, og-cover.png, CV PDF
 ```
+
+`index.html` brackets its page-specific tags between `<!--seo-head:start-->`
+and `<!--seo-head:end-->`; the prerender build replaces that block per route.
 
 Routes: `/ · /about · /experience · /contact · /projects · /projects/:slug ·
 /blog · /blog/:slug · /github · /linkedin · /cv · /kilelearchade · /apex`
@@ -41,8 +50,9 @@ Search the repo for `TODO`. In particular:
 - [ ] Real GitHub / LinkedIn / email in `src/data/site.js`
 - [ ] Real repository URLs for projects and lab experiments
 - [ ] Apex live URL (or keep it unset until launch)
-- [ ] Final domain in `index.html`, `robots.txt`, `sitemap.xml`,
-      `src/data/site.js` (`SITE_URL`)
+- [ ] Final domain: `src/data/site.js` (`SITE_URL`) feeds the head tags,
+      structured data and the generated sitemap; `public/robots.txt` and
+      `public/llms.txt` still name it by hand
 - [ ] Real CV → replace `public/Fredrick-Onyango-CV.pdf`
 - [ ] Real project screenshots → replace `ProjectVisual` placeholders
       (`public/images/`)
