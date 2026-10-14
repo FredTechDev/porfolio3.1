@@ -419,6 +419,88 @@ code {
   }
 }
 
+/* Education & certifications -------------------------------------------------- */
+
+.edu-card {
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-bottom: 2.5rem;
+}
+
+.edu-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.edu-card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.edu-school {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.edu-short {
+  color: var(--text-faint);
+}
+
+.edu-period {
+  margin: 0.3rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.edu-sub {
+  margin: 1.4rem 0 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.edu-certs-title {
+  margin: 0 0 1.2rem;
+  font-size: 1.05rem;
+}
+
+.edu-cert-issuer {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+}
+
+.edu-cert-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.edu-cert-date {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
+.edu-cert-link {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.edu-cert-link:hover {
+  color: var(--accent-strong);
+}
+
 /* Navbar -------------------------------------------------------------------- */
 
 .navbar {

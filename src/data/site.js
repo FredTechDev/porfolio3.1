@@ -35,11 +35,19 @@ export const socials = [
 ];
 
 export const education = {
-  // TODO: confirm dates and qualification details.
   school: "Masinde Muliro University of Science and Technology",
+  shortSchool: "MMUST",
   qualification: "Degree in Information Technology",
   status: "Currently studying",
+  period: "", // TODO: confirm years, e.g. "2023 — 2027"
+  // TODO: optional — list only modules you can speak to in an interview.
+  coursework: [],
 };
+
+// Shape: { name, issuer, date, url }
+// The section hides itself while this is empty, so no unverified credential
+// can reach the live site. Add only certifications you can link to.
+export const certifications = [];
 
 export const philosophy = [
   "Understand the real problem before writing any code.",

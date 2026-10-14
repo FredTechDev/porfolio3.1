@@ -1,9 +1,10 @@
 import About from '../sections/About.jsx'
+import Education from '../sections/Education.jsx'
 import TechStack from '../sections/TechStack.jsx'
 import Achievements from '../sections/Achievements.jsx'
 import PageNav from '../components/PageNav.jsx'
 import { usePageSeo } from '../components/usePageSeo.js'
-import { profile, SITE_URL } from '../data/site.js'
+import { profile, education, certifications, SITE_URL } from '../data/site.js'
 
 export default function AboutPage() {
   usePageSeo({
@@ -43,8 +44,17 @@ export default function AboutPage() {
         },
         alumniOf: {
           '@type': 'EducationalOrganization',
-          name: 'Masinde Muliro University of Science and Technology',
+          name: education.school,
         },
+        ...(certifications.length > 0 && {
+          hasCredential: certifications.map((c) => ({
+            '@type': 'EducationalOccupationalCredential',
+            name: c.name,
+            credentialCategory: 'certification',
+            recognizedBy: { '@type': 'Organization', name: c.issuer },
+            url: c.url,
+          })),
+        }),
       },
     },
     lastmod: '2026-01-15',
@@ -61,6 +71,7 @@ export default function AboutPage() {
       </div>
 
       <About />
+      <Education />
       <TechStack />
       <Achievements />
 
