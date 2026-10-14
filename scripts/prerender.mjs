@@ -17,15 +17,27 @@ const HEAD_END = '<!--seo-head:end-->'
 const ROOT_MARK = '<div id="root"></div>'
 const NOT_FOUND_SAMPLE = '/no-such-page-for-the-404-template'
 
-const esc = (v) => String(v).replace(/&/g, '&amp;')
+const esc = (v) =>
+  String(v)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 
 function buildSitemap() {
   const urls = sitemapPaths()
-    .map(({ path, lastmod }) => `    <url><loc>${esc(urlFor(path))}</loc><lastmod>${lastmod}</lastmod></url>`)
+    .map(({ path, lastmod, image }) => {
+      const inner = `<loc>${esc(urlFor(path))}</loc><lastmod>${lastmod}</lastmod>`
+      if (!image) return `    <url>${inner}</url>`
+      const img =
+        `<image:image><image:loc>${esc(image.url)}</image:loc>` +
+        `<image:caption>${esc(image.caption)}</image:caption></image:image>`
+      return `    <url>${inner}${img}</url>`
+    })
     .join('\n')
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+    '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
     urls,
     '</urlset>',
     '',

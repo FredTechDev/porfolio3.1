@@ -15,11 +15,14 @@ import {
 const UPDATED = '2026-01-15'
 const ogCover = `${SITE_URL}/og-cover.png`
 
+const PORTRAIT = `${SITE_URL}/fredrick-onyango.jpg`
+
 const personEntity = (extra = {}) => ({
   '@type': 'Person',
   name: profile.name,
   jobTitle: profile.role,
   url: SITE_URL,
+  image: PORTRAIT,
   email: `mailto:${profile.email}`,
   address: { '@type': 'PostalAddress', addressCountry: 'KE', addressRegion: 'Nairobi' },
   knowsAbout: [
@@ -50,6 +53,10 @@ const home = {
   type: 'WebPage',
   lastmod: UPDATED,
   ogImage: ogCover,
+  sitemapImage: {
+    url: PORTRAIT,
+    caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
+  },
   extraSchema: { '@type': 'ProfilePage', mainEntity: personEntity() },
 }
 
@@ -362,7 +369,7 @@ export function allSeoPaths() {
 /** Routes a crawler should be told about. */
 export function sitemapPaths() {
   return [
-    ...indexables.map((o) => ({ path: o.path, lastmod: o.lastmod })),
+    ...indexables.map((o) => ({ path: o.path, lastmod: o.lastmod, image: o.sitemapImage })),
     ...projects
       .filter((p) => p.featured)
       .map((p) => ({ path: `/projects/${p.slug}`, lastmod: UPDATED })),

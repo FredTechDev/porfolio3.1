@@ -41,7 +41,7 @@ export default function Hero() {
         <figure className="hero-photo">
           <img
             src="/fredrick-onyango.jpg"
-            alt="Fredrick Onyango"
+            alt="Fredrick Onyango, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
             width="512"
             height="683"
             fetchPriority="high"
