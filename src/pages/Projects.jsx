@@ -9,9 +9,24 @@ import { SITE_URL } from '../data/site.js'
 
 const visuals = { 'kilele-archade': 'edu', apex: 'prop', mediflow: 'med' }
 
+// The detail pages publish each Product node on its own; on this page the same
+// nodes ride inside the ItemList so the collection carries the product data too.
+// `@context` is dropped because these sit inside the page schema, not standalone.
+function buildCollectionItems(list) {
+  return list.map((project, i) => {
+    const { '@context': _standaloneOnly, ...product } = buildProductSchema(project)
+    return {
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/projects/${project.slug}`,
+      item: product,
+    }
+  })
+}
+
 export default function Projects() {
   const [filter, setFilter] = useState('all')
-  const featuredProducts = projects.filter((p) => p.featured).map(buildProductSchema)
+  const featuredProducts = buildCollectionItems(projects.filter((p) => p.featured))
   usePageSeo({
     title: 'Projects — Fredrick Onyango | Full-Stack, AI/ML & Backend Engineering Portfolio',
     description:
@@ -22,14 +37,7 @@ export default function Projects() {
       '@type': 'ItemList',
       name: 'Software Projects Portfolio',
       description: 'Collection of full-stack, AI/ML, backend and IoT projects by Fredrick Onyango',
-      itemListElement: projects
-        .filter((p) => p.featured)
-        .map((p, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          url: `${SITE_URL}/projects/${p.slug}`,
-          name: p.name,
-        })),
+      itemListElement: featuredProducts,
     },
     lastmod: '2026-01-15',
   })
