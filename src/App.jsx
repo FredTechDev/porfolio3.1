@@ -12,7 +12,7 @@ import Blog from './pages/Blog.jsx'
 import BlogPost from './pages/BlogPost.jsx'
 import ExternalRedirect from './pages/ExternalRedirect.jsx'
 import NotFound from './pages/NotFound.jsx'
-import { profile } from './data/site.js'
+import { redirectRoutes } from './seo/routes.js'
 
 export default function App() {
   return (
@@ -29,13 +29,14 @@ export default function App() {
         <Route path="blog" element={<Blog />} />
         <Route path="blog/:slug" element={<BlogPost />} />
 
-        {/* clean redirect routes (spec §25) — never point at private infrastructure */}
-        <Route path="github" element={<ExternalRedirect to={profile.github} />} />
-        <Route path="linkedin" element={<ExternalRedirect to={profile.linkedin} />} />
-        <Route path="email" element={<ExternalRedirect to={`mailto:${profile.email}`} />} />
-        <Route path="cv" element={<ExternalRedirect to={profile.cvPath} />} />
-        <Route path="kilelearchade" element={<ExternalRedirect to="https://kilelearchade.co.ke" />} />
-        <Route path="apex" element={<ExternalRedirect to="/projects/apex" internal />} />
+        {/* clean redirect aliases (spec §25) — never point at private infrastructure */}
+        {redirectRoutes.map((stub) => (
+          <Route
+            key={stub.path}
+            path={stub.path.slice(1)}
+            element={<ExternalRedirect to={stub.to} internal={stub.internal} path={stub.path} />}
+          />
+        ))}
 
         <Route path="*" element={<NotFound />} />
       </Route>

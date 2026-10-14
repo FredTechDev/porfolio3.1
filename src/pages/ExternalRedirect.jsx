@@ -1,18 +1,24 @@
 import { useEffect } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { usePageSeo } from '../components/usePageSeo.js'
+import { getSeo } from '../seo/routes.js'
 
 /**
- * Clean redirect route (spec §25). `internal` targets are SPA routes and use
- * <Navigate>; everything else (external URLs, mailto, static assets like the
- * CV PDF) is a real browser navigation via location.replace. Only public,
- * professional destinations belong here.
+ * Clean redirect route (spec §25). Internal targets move through the router,
+ * external ones (URLs, mailto, the CV PDF) are real browser navigations.
+ * Only public, professional destinations belong here.
+ *
+ * Aliases stay noindex — they exist to be shared, not found — and render a
+ * working link so the prerendered, JS-less copy still gets the visitor there.
  */
-export default function ExternalRedirect({ to, internal = false }) {
-  useEffect(() => {
-    if (!internal) window.location.replace(to)
-  }, [to, internal])
+export default function ExternalRedirect({ to, internal = false, path }) {
+  const navigate = useNavigate()
+  usePageSeo(getSeo(path))
 
-  if (internal) return <Navigate to={to} replace />
+  useEffect(() => {
+    if (internal) navigate(to, { replace: true })
+    else window.location.replace(to)
+  }, [to, internal, navigate])
 
   return (
     <div className="center-page">
