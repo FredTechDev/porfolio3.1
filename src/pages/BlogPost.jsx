@@ -2,61 +2,15 @@ import { Link, useParams } from 'react-router-dom'
 import { getPost, posts } from '../data/blog.js'
 import { getProject } from '../data/projects.js'
 import NotFound from './NotFound.jsx'
-import { usePageSeo, buildBlogPostingSchema, buildFAQSchema } from '../components/usePageSeo.js'
+import { usePageSeo } from '../components/usePageSeo.js'
 import { profile, SITE_URL } from '../data/site.js'
+import { getSeo } from '../seo/routes.js'
 
 export default function BlogPost() {
   const { slug } = useParams()
   const post = getPost(slug)
 
-  const blogSchema = post ? buildBlogPostingSchema(post) : undefined
-
-  // FAQ schema for common questions about the blog topic
-  const faqSchema = post
-    ? buildFAQSchema([
-        {
-          question: `What is ${post.title} about?`,
-          answer: post.excerpt,
-        },
-        {
-          question: 'Who is the author?',
-          answer: `${post.author} is a Full-Stack Developer, Backend Engineer & AI/ML Engineer based in Kenya.`,
-        },
-        {
-          question: 'What technologies are covered?',
-          answer: post.relatedProjects
-            ? `This post covers ${post.category} and relates to ${post.relatedProjects.map((s) => getProject(s)?.name).filter(Boolean).join(', ')}.`
-            : `This post covers ${post.category} and related software engineering topics.`,
-        },
-      ])
-    : undefined
-
-  usePageSeo({
-    title: post ? `${post.title} — Fredrick Onyango` : 'Post not found',
-    description: post ? post.excerpt : 'Post not found',
-    path: `/blog/${slug}`,
-    type: 'Article',
-    extraSchema: {
-      '@type': 'Article',
-      headline: post?.title,
-      datePublished: post?.date,
-      dateModified: post?.date,
-      author: { '@type': 'Person', name: post?.author, url: SITE_URL },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Fredrick Onyango',
-        logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-cover.png` },
-      },
-      articleSection: post?.category,
-      keywords: [post?.category, 'AI Engineering', 'Software Engineering', 'Kenya', 'RAG', 'System Architecture'].join(', '),
-      wordCount: post?.body.reduce((acc, sec) => acc + sec.p.join(' ').split(' ').length, 0),
-      timeRequired: post ? `PT${post.readingMinutes}M` : undefined,
-      inLanguage: 'en-KE',
-    },
-    jsonLd: [blogSchema, faqSchema].filter(Boolean),
-    lastmod: post?.date,
-    ogImage: `${SITE_URL}/og-cover.png`,
-  })
+  usePageSeo(getSeo(`/blog/${slug}`))
 
   if (!post) return <NotFound />
 

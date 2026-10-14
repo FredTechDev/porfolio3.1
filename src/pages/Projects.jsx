@@ -4,43 +4,14 @@ import { projects, otherProjects, projectFilters } from '../data/projects.js'
 import ProjectCard from '../components/ProjectCard.jsx'
 import TechIcon from '../components/TechIcon.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
-import { usePageSeo, buildProductSchema } from '../components/usePageSeo.js'
-import { SITE_URL } from '../data/site.js'
+import { usePageSeo } from '../components/usePageSeo.js'
+import { getSeo } from '../seo/routes.js'
 
 const visuals = { 'kilele-archade': 'edu', apex: 'prop', mediflow: 'med' }
 
-// The detail pages publish each Product node on its own; on this page the same
-// nodes ride inside the ItemList so the collection carries the product data too.
-// `@context` is dropped because these sit inside the page schema, not standalone.
-function buildCollectionItems(list) {
-  return list.map((project, i) => {
-    const { '@context': _standaloneOnly, ...product } = buildProductSchema(project)
-    return {
-      '@type': 'ListItem',
-      position: i + 1,
-      url: `${SITE_URL}/projects/${project.slug}`,
-      item: product,
-    }
-  })
-}
-
 export default function Projects() {
   const [filter, setFilter] = useState('all')
-  const featuredProducts = buildCollectionItems(projects.filter((p) => p.featured))
-  usePageSeo({
-    title: 'Projects — Fredrick Onyango | Full-Stack, AI/ML & Backend Engineering Portfolio',
-    description:
-      'Explore Fredrick Onyango\'s software projects: Kilele Archade (AI EdTech), Apex (PropTech rental management), MediFlow (HealthTech), plus AI, data engineering and IoT experiments. Full case studies with architecture, stack and results.',
-    path: '/projects',
-    type: 'CollectionPage',
-    extraSchema: {
-      '@type': 'ItemList',
-      name: 'Software Projects Portfolio',
-      description: 'Collection of full-stack, AI/ML, backend and IoT projects by Fredrick Onyango',
-      itemListElement: featuredProducts,
-    },
-    lastmod: '2026-01-15',
-  })
+  usePageSeo(getSeo('/projects'))
 
   const visibleProjects =
     filter === 'all' ? projects : projects.filter((p) => p.filters.includes(filter))
