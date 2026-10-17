@@ -28,6 +28,17 @@ export function textValue(value) {
     .replace(/>/g, '&gt;')
 }
 
+// Google truncates snippets around 160 characters and rewrites what it cuts, so
+// a long description buys nothing. This clamps at a word boundary as a floor
+// under the hand-written copy; it should never be what makes the cut.
+export function clampDescription(text, max = 158) {
+  const s = String(text).trim()
+  if (s.length <= max) return s
+  const cut = s.slice(0, max)
+  const lastSpace = cut.lastIndexOf(' ')
+  return `${cut.slice(0, lastSpace > max - 30 ? lastSpace : max - 1)}…`
+}
+
 /**
  * The complete `<head>` payload for a page. `usePageSeo` applies these to the
  * live document and the prerender build writes them into static HTML, so both
@@ -53,7 +64,7 @@ export function buildHead(opts) {
   const img = ogImage || OG_IMAGE
 
   const metas = [
-    { name: 'description', content: description },
+    { name: 'description', content: clampDescription(description) },
     { name: 'robots', content: `${noindex ? 'noindex' : 'index'}, ${nofollow ? 'nofollow' : 'follow'}` },
     { name: 'author', content: profile.name },
     { name: 'geo.region', content: 'KE' },
@@ -134,7 +145,7 @@ function buildSchemas({ title, description, path, type, extraSchema, jsonLd }) {
 }
 
 function buildBreadcrumbs(path) {
-  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL }]
+  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: urlFor('/') }]
   let currentPath = ''
   path
     .split('/')

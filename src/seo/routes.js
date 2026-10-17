@@ -1,6 +1,6 @@
 import { profile, SITE_URL, education, certifications, experiences, services } from '../data/site.js'
 import { projects, getProject } from '../data/projects.js'
-import { posts, getPost } from '../data/blog.js'
+import { posts, getPost, categories, getCategory, postsInCategory } from '../data/blog.js'
 import { labExperiments, getLabExperiment } from '../data/lab.js'
 import { SAME_AS } from './head.js'
 import {
@@ -11,17 +11,29 @@ import {
   buildKileleOrganizationSchema,
   postFaqs,
   repoLanguage,
-  wordCount,
   PERSON_ID,
   KILELE_ORG_ID,
   KILELE_URL,
   personRef,
 } from './schemas.js'
 
-const UPDATED = '2026-10-17'
-const ogCover = `${SITE_URL}/og-cover.png`
+// Per-route social cards, produced by scripts/og-images.mjs and committed as
+// static assets so the deploy never has to rasterise anything.
+const ogCard = (name) => `${SITE_URL}/og/${name}.png`
 
 const PORTRAIT = `${SITE_URL}/fredrick-onyango.jpg`
+
+// Periods read "2025 — Present". A bare year is valid ISO 8601; inventing a
+// month would put a precise-looking date in the graph that nobody has confirmed.
+const yearOf = (period) => /^\s*(\d{4})\b/.exec(period ?? '')?.[1]
+
+const occupations = experiences.map((exp) => ({
+  '@type': 'EmploymentRole',
+  roleName: exp.role,
+  ...(yearOf(exp.period) && { startDate: yearOf(exp.period) }),
+  worksFor: { '@type': 'Organization', name: exp.org },
+  description: exp.points.join(' '),
+}))
 
 const personEntity = (extra = {}) => ({
   '@type': 'Person',
@@ -49,6 +61,7 @@ const personEntity = (extra = {}) => ({
     'Spring Boot',
   ],
   sameAs: SAME_AS,
+  hasOccupation: occupations,
   worksFor: {
     '@type': 'Organization',
     '@id': KILELE_ORG_ID,
@@ -61,11 +74,10 @@ const personEntity = (extra = {}) => ({
 const home = {
   title: `${profile.name} — Full-Stack Developer, Backend Engineer & AI/ML Engineer | Kenya`,
   description:
-    'Fredrick Onyango — Kenya-based Full-Stack Developer, Backend Engineer & AI/ML Engineer. Building intelligent, scalable products: Kilele Archade (AI EdTech), Apex (PropTech). Available for remote work globally.',
+    'Fredrick Onyango — Full-Stack, Backend & AI/ML Engineer in Nairobi. I build AI-powered products end to end: Kilele Archade (EdTech) and Apex (PropTech).',
   path: '/',
   type: 'WebPage',
-  lastmod: UPDATED,
-  ogImage: ogCover,
+  ogImage: ogCard('home'),
   sitemapImage: {
     url: PORTRAIT,
     caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
@@ -77,11 +89,10 @@ const home = {
 const about = {
   title: 'About — Fredrick Onyango | Full-Stack, Backend & AI/ML Engineer from Kenya',
   description:
-    'Learn about Fredrick Onyango: background, engineering philosophy, full tech stack (React, TypeScript, Python, Java, PostgreSQL, AI/ML), and achievements as a software engineer building Kilele Archade and Apex.',
+    'Who I am and how I work: engineering philosophy, full stack (React, TypeScript, Python, Java, PostgreSQL, AI/ML) and the products I have shipped from Nairobi.',
   path: '/about',
   type: 'ProfilePage',
-  lastmod: UPDATED,
-  ogImage: PORTRAIT,
+  ogImage: ogCard('about'),
   sitemapImage: {
     url: PORTRAIT,
     caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer from Nairobi, Kenya',
@@ -106,23 +117,23 @@ const about = {
 const experience = {
   title: 'Experience — Fredrick Onyango | Cine Creatives, Apex & Kilele Archade',
   description:
-    'Professional experience of Fredrick Onyango: Development work at Cine Creatives (full-stack), Founder & Lead at Apex (PropTech rental management), and Builder at Kilele Archade (AI EdTech platform). Full-stack, backend and AI/ML engineering experience.',
+    'Developer at Cine Creatives, Founder of Apex (PropTech) and Builder of Kilele Archade (AI EdTech). Full-stack, backend and AI/ML engineering work since 2025.',
   path: '/experience',
   type: 'WebPage',
-  lastmod: UPDATED,
+  ogImage: ogCard('experience'),
   extraSchema: {
     '@type': 'ItemList',
     name: 'Professional Experience',
-    itemListElement: experiences.map((exp, i) => ({
+    itemListElement: occupations.map((role, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       item: {
-        '@type': exp.type === 'Employment' ? 'JobPosting' : 'Project',
-        name: exp.role,
-        hiringOrganization: { '@type': 'Organization', name: exp.org },
-        datePosted: exp.period.split(' — ')[0],
-        description: exp.points.join(' '),
-        jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressCountry: 'KE' } },
+        ...role,
+        organization: role.worksFor,
+        location: {
+          '@type': 'Place',
+          address: { '@type': 'PostalAddress', addressCountry: 'KE' },
+        },
       },
     })),
   },
@@ -131,10 +142,10 @@ const experience = {
 const aiEngineering = {
   title: 'AI & Engineering — Fredrick Onyango | RAG, LLM Integration & System Architecture',
   description:
-    'How Fredrick Onyango approaches AI engineering: RAG pipelines, LLM integration patterns, pgvector retrieval, provider fallback architectures, and system design behind Kilele Archade and Apex. Deep technical dive into production AI systems.',
+    'How I build production AI: RAG pipelines, pgvector retrieval, LLM integration and provider fallback, plus the system design behind Kilele Archade and Apex.',
   path: '/ai-engineering',
   type: 'WebPage',
-  lastmod: UPDATED,
+  ogImage: ogCard('ai-engineering'),
   extraSchema: {
     '@type': 'TechArticle',
     headline: 'AI & Engineering — System Architecture & RAG Pipelines',
@@ -153,10 +164,10 @@ const aiEngineering = {
 const lab = {
   title: 'Lab — Fredrick Onyango | AI, IoT & Engineering Experiments with Source Code',
   description:
-    "Explore Fredrick Onyango's lab experiments: ESP32 IoT weather systems, RAG strategy benchmarks, AI provider fallback harnesses, computer vision attendance, and automation scripts. All with public GitHub repositories.",
+    'Hands-on experiments with public source code: ESP32 IoT weather station, RAG strategy benchmarks, AI provider fallback harness, computer vision attendance.',
   path: '/lab',
   type: 'CollectionPage',
-  lastmod: UPDATED,
+  ogImage: ogCard('lab'),
   extraSchema: {
     '@type': 'ItemList',
     name: 'Engineering Lab Experiments',
@@ -175,7 +186,7 @@ const lab = {
       description: exp.description,
       repoUrl: exp.repo,
       language: repoLanguage(exp.stack),
-      datePublished: '2025-01-01',
+      datePublished: exp.date,
     }),
   ),
 }
@@ -183,10 +194,10 @@ const lab = {
 const projectsPage = {
   title: 'Projects — Fredrick Onyango | Full-Stack, AI/ML & Backend Engineering Portfolio',
   description:
-    "Explore Fredrick Onyango's software projects: Kilele Archade (AI EdTech), Apex (PropTech rental management), MediFlow (HealthTech), plus AI, data engineering and IoT experiments. Full case studies with architecture, stack and results.",
+    'Case studies with architecture, stack and results: Kilele Archade (AI EdTech), Apex (PropTech SaaS) and MediFlow (HealthTech), each built end to end.',
   path: '/projects',
   type: 'CollectionPage',
-  lastmod: UPDATED,
+  ogImage: ogCard('projects'),
   extraSchema: {
     '@type': 'ItemList',
     name: 'Software Projects Portfolio',
@@ -209,10 +220,11 @@ const projectsPage = {
 const blogPage = {
   title: 'Blog — Fredrick Onyango | AI Engineering, System Architecture & Software Development',
   description:
-    'Technical writing by Fredrick Onyango on AI engineering, RAG pipelines, PostgreSQL/pgvector, system architecture, and building production software. Lessons from building Kilele Archade and Apex.',
+    'Technical writing on AI engineering, RAG pipelines, PostgreSQL and pgvector, system architecture and product engineering — from building real platforms in Kenya.',
   path: '/blog',
   type: 'Blog',
-  lastmod: posts[0]?.date ?? UPDATED,
+  ogImage: ogCard('blog'),
+  lastmod: posts[0]?.date,
   extraSchema: {
     '@type': 'Blog',
     name: `${profile.name} — Technical Blog`,
@@ -232,11 +244,10 @@ const blogPage = {
 const servicesPage = {
   title: 'Services — Hire Fredrick Onyango | Full-Stack, Backend & AI/ML Developer (Kenya / Remote)',
   description:
-    'Hire Fredrick Onyango for end-to-end software delivery: AI/ML and RAG systems, full-stack React products, backend APIs in Node.js and Spring Boot, PostgreSQL data design and cloud deployments. Kenya-based, available for remote work globally.',
+    'Hire Fredrick Onyango for end-to-end delivery: AI and RAG systems, React products, Node.js and Spring Boot APIs, PostgreSQL design, cloud deployment. Remote worldwide.',
   path: '/services',
   type: 'WebPage',
-  lastmod: UPDATED,
-  ogImage: PORTRAIT,
+  ogImage: ogCard('services'),
   sitemapImage: {
     url: PORTRAIT,
     caption:
@@ -253,6 +264,7 @@ const servicesPage = {
         name: s.title,
         serviceType: s.type,
         description: s.body,
+        image: ogCard('services'),
         provider: personRef,
         areaServed: [
           { '@type': 'Country', name: 'Kenya' },
@@ -267,10 +279,10 @@ const servicesPage = {
 const contact = {
   title: 'Contact — Fredrick Onyango | Hire Full-Stack, Backend & AI/ML Engineer (Kenya/Remote)',
   description:
-    'Contact Fredrick Onyango for full-stack development, backend engineering, AI/ML engineering, and system architecture projects. Available for remote work globally and Kenya-based opportunities. Email, GitHub, LinkedIn.',
+    'Contact Fredrick Onyango for full-stack, backend, AI/ML and architecture work. Email, WhatsApp, GitHub or LinkedIn — Nairobi-based, remote worldwide.',
   path: '/contact',
   type: 'ContactPage',
-  lastmod: UPDATED,
+  ogImage: ogCard('contact'),
   extraSchema: {
     '@type': 'ContactPage',
     name: 'Contact Fredrick Onyango',
@@ -296,10 +308,10 @@ function projectDetail(slug) {
 
   return {
     title: `${project.name} — Case Study | ${profile.name}`,
-    description: `${project.summary} Problem, solution, architecture and results for ${project.name}. Built with ${project.stack.slice(0, 5).join(', ')}.`,
+    description: project.summary,
     path: `/projects/${project.slug}`,
     type: 'SoftwareApplication',
-    lastmod: UPDATED,
+    ogImage: ogCard(`project-${project.slug}`),
     extraSchema: buildSoftwareApplicationSchema(project),
     jsonLd: [
       buildProductSchema(project),
@@ -310,7 +322,6 @@ function projectDetail(slug) {
           description: project.summary,
           repoUrl: project.repo,
           language: repoLanguage(project.stack),
-          datePublished: '2025-01-01',
         }),
     ].filter(Boolean),
   }
@@ -326,32 +337,49 @@ function blogDetail(slug) {
     path: `/blog/${post.slug}`,
     type: 'Article',
     lastmod: post.date,
-    ogImage: ogCover,
-    extraSchema: {
-      '@type': 'Article',
-      headline: post.title,
-      datePublished: post.date,
-      dateModified: post.date,
-      author: { '@type': 'Person', name: post.author, url: SITE_URL },
-      publisher: {
-        '@type': 'Organization',
-        name: profile.name,
-        logo: { '@type': 'ImageObject', url: ogCover },
-      },
-      articleSection: post.category,
-      keywords: [
-        post.category,
-        'AI Engineering',
-        'Software Engineering',
-        'Kenya',
-        'RAG',
-        'System Architecture',
-      ].join(', '),
-      wordCount: wordCount(post),
-      timeRequired: `PT${post.readingMinutes}M`,
-      inLanguage: 'en-KE',
-    },
+    ogImage: ogCard(`blog-${post.slug}`),
+    // The page node stays a WebPage; buildBlogPostingSchema below is the
+    // Article entity. Emitting both as articles described one URL twice.
+    extraSchema: { '@type': 'WebPage' },
     jsonLd: [buildBlogPostingSchema(post), postFaqs(post)],
+  }
+}
+
+function categoryPage(slug) {
+  const category = getCategory(slug)
+  if (!category) return notFound(`/blog/${slug}`)
+
+  const inCategory = postsInCategory(slug)
+
+  return {
+    title: `${category.name} — Writing | ${profile.name}`,
+    description: `${category.summary}`,
+    path: `/blog/${category.slug}`,
+    type: 'CollectionPage',
+    lastmod: inCategory[0]?.date,
+    ogImage: ogCard(`blog-category-${category.slug}`),
+    extraSchema: {
+      '@type': 'CollectionPage',
+      name: `${category.name} writing`,
+      description: category.summary,
+      isPartOf: { '@type': 'WebSite', url: `${SITE_URL}/blog` },
+      mainEntity: {
+        '@type': 'ItemList',
+        name: `${category.name} articles`,
+        numberOfItems: inCategory.length,
+        itemListElement: inCategory.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${SITE_URL}/blog/${p.slug}`,
+          item: {
+            '@type': 'BlogPosting',
+            headline: p.title,
+            datePublished: p.date,
+            author: personRef,
+          },
+        })),
+      },
+    },
   }
 }
 
@@ -364,11 +392,13 @@ function labDetail(slug) {
     description: exp.description,
     path: `/lab/${exp.slug}`,
     type: 'WebPage',
-    lastmod: UPDATED,
+    lastmod: exp.date,
+    ogImage: ogCard(`lab-${exp.slug}`),
     extraSchema: {
       '@type': 'TechArticle',
       headline: exp.name,
       description: exp.description,
+      image: ogCard(`lab-${exp.slug}`),
       author: personRef,
       datePublished: exp.date,
       keywords: [...exp.stack, 'IoT', 'AI Engineering', 'Kenya'].join(', '),
@@ -439,7 +469,11 @@ export function getSeo(pathname) {
   if (labExperiment) return labDetail(labExperiment[1])
 
   const post = /^\/blog\/([^/]+)$/.exec(path)
-  if (post) return blogDetail(post[1])
+  if (post) {
+    // Category slugs live at the same depth as posts, so the hub wins first.
+    if (getCategory(post[1])) return categoryPage(post[1])
+    return blogDetail(post[1])
+  }
 
   return notFound(path)
 }
@@ -451,6 +485,7 @@ export function allSeoPaths() {
     ...projects.filter((p) => p.featured).map((p) => `/projects/${p.slug}`),
     ...labExperiments.map((x) => `/lab/${x.slug}`),
     ...posts.map((p) => `/blog/${p.slug}`),
+    ...categories.map((c) => `/blog/${c.slug}`),
     ...redirectRoutes.map((s) => s.path),
   ]
 }
@@ -461,8 +496,24 @@ export function sitemapPaths() {
     ...indexables.map((o) => ({ path: o.path, lastmod: o.lastmod, image: o.sitemapImage })),
     ...projects
       .filter((p) => p.featured)
-      .map((p) => ({ path: `/projects/${p.slug}`, lastmod: UPDATED })),
-    ...labExperiments.map((x) => ({ path: `/lab/${x.slug}`, lastmod: UPDATED })),
-    ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.date })),
+      .map((p) => ({
+        path: `/projects/${p.slug}`,
+        image: { url: ogCard(`project-${p.slug}`), caption: `${p.name} — case study by ${profile.name}` },
+      })),
+    ...labExperiments.map((x) => ({
+      path: `/lab/${x.slug}`,
+      lastmod: x.date,
+      image: { url: ogCard(`lab-${x.slug}`), caption: `${x.name} — lab experiment by ${profile.name}` },
+    })),
+    ...posts.map((p) => ({
+      path: `/blog/${p.slug}`,
+      lastmod: p.date,
+      image: { url: ogCard(`blog-${p.slug}`), caption: `${p.title} — article by ${profile.name}` },
+    })),
+    ...categories.map((c) => ({
+      path: `/blog/${c.slug}`,
+      lastmod: postsInCategory(c.slug)[0]?.date,
+      image: { url: ogCard(`blog-category-${c.slug}`), caption: `${c.name} writing by ${profile.name}` },
+    })),
   ]
 }

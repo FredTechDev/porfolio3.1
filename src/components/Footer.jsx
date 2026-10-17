@@ -7,6 +7,7 @@ const explore = [
   { label: 'Services', to: '/services' },
   { label: 'Projects', to: '/projects' },
   { label: 'Experience', to: '/experience' },
+  { label: 'AI & Engineering', to: '/ai-engineering' },
   { label: 'Lab', to: '/lab' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },

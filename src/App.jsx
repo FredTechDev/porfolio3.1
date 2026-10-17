@@ -11,7 +11,7 @@ import ContactPage from './pages/Contact.jsx'
 import Projects from './pages/Projects.jsx'
 import ProjectDetail from './pages/ProjectDetail.jsx'
 import Blog from './pages/Blog.jsx'
-import BlogPost from './pages/BlogPost.jsx'
+import BlogSlug from './pages/BlogSlug.jsx'
 import ExternalRedirect from './pages/ExternalRedirect.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { redirectRoutes } from './seo/routes.js'
@@ -31,7 +31,7 @@ export default function App() {
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:slug" element={<ProjectDetail />} />
         <Route path="blog" element={<Blog />} />
-        <Route path="blog/:slug" element={<BlogPost />} />
+        <Route path="blog/:slug" element={<BlogSlug />} />
 
         {/* clean redirect aliases (spec §25) — never point at private infrastructure */}
         {redirectRoutes.map((stub) => (

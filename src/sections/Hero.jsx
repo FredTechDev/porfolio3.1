@@ -48,13 +48,24 @@ export default function Hero() {
         </div>
 
         <figure className="hero-photo">
-          <img
-            src="/fredrick-onyango.jpg"
-            alt="Fredrick Onyango, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
-            width="512"
-            height="683"
-            fetchPriority="high"
-          />
+          {/* The frame is capped at 340px by .hero-photo, so 360w covers 1x and
+              720w covers 2x. The full-resolution original stays schema-only. */}
+          <picture>
+            <source
+              type="image/webp"
+              srcSet="/fredrick-onyango-360w.webp 360w, /fredrick-onyango-720w.webp 720w"
+              sizes="360px"
+            />
+            <img
+              src="/fredrick-onyango-360w.jpg"
+              srcSet="/fredrick-onyango-360w.jpg 360w, /fredrick-onyango-720w.jpg 720w"
+              sizes="360px"
+              alt="Fredrick Onyango, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
+              width="360"
+              height="480"
+              fetchPriority="high"
+            />
+          </picture>
         </figure>
       </div>
     </section>

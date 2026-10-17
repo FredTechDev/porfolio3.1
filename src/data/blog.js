@@ -7,11 +7,12 @@ export const posts = [
     title: "Building Kilele Archade: an AI Learning Platform for Kenya's CBC Curriculum",
     date: "2026-10-12",
     category: "Product Engineering",
+    topics: ["EdTech", "CBC curriculum", "AI tutor", "Supabase", "product launch", "Nairobi"],
     readingMinutes: 7,
     author: "Fredrick Onyango",
     relatedProjects: ["kilele-archade"],
     excerpt:
-      "The full story behind kilelearchade.co.ke — why I built a CBC-focused AI tutor in Nairobi, how the product took shape, and what shipping a real platform for Kenyan students and teachers taught me.",
+      "The story behind kilelearchade.co.ke: why I built a CBC-focused AI tutor in Nairobi, how it took shape, and what shipping to real classrooms taught me.",
     body: [
       {
         h: "Why build an EdTech product in Kenya",
@@ -51,11 +52,12 @@ export const posts = [
     title: "Role-Based Dashboards for Teachers, Students and Parents",
     date: "2026-08-20",
     category: "System Architecture",
+    topics: ["row-level security", "access control", "role-based dashboards", "privacy", "Supabase", "multi-tenant"],
     readingMinutes: 5,
     author: "Fredrick Onyango",
     relatedProjects: ["kilele-archade"],
     excerpt:
-      "One learning platform, three very different users. How the teacher/student/parent model behind Kilele Archade was designed — roles, row-level security and the privacy boundaries between them.",
+      "One platform, three very different users: how the teacher, student and parent model behind Kilele Archade handles roles, row-level security and privacy.",
     body: [
       {
         h: "Three users, three different questions",
@@ -94,11 +96,12 @@ export const posts = [
     title: "Building a RAG System for an Educational Platform",
     date: "2026-06-18",
     category: "AI Engineering",
+    topics: ["RAG", "retrieval-augmented generation", "embeddings", "pgvector", "LLM fallback", "chunking"],
     readingMinutes: 7,
     author: "Fredrick Onyango",
     relatedProjects: ["kilele-archade"],
     excerpt:
-      "How Kilele Archade grounds its AI tutor in actual curriculum documents — ingestion, chunking, pgvector retrieval and provider fallback — instead of letting a model answer from memory.",
+      "How Kilele Archade grounds its AI tutor in real curriculum documents: ingestion, chunking, pgvector retrieval and provider fallback, not model memory.",
     body: [
       {
         h: "The problem with 'chat, but for school'",
@@ -141,6 +144,7 @@ export const posts = [
     title: "Designing AI-Powered Learning Systems",
     date: "2026-04-30",
     category: "AI Engineering",
+    topics: ["AI product design", "LLM integration", "assessment integrity", "education technology", "machine learning"],
     readingMinutes: 6,
     author: "Fredrick Onyango",
     relatedProjects: ["kilele-archade"],
@@ -184,6 +188,7 @@ export const posts = [
     title: "PostgreSQL and pgvector for AI Applications",
     date: "2026-02-14",
     category: "Databases",
+    topics: ["PostgreSQL", "pgvector", "vector search", "embeddings", "data modelling", "database architecture"],
     readingMinutes: 5,
     author: "Fredrick Onyango",
     relatedProjects: ["kilele-archade"],
@@ -220,4 +225,75 @@ export const posts = [
 
 export function getPost(slug) {
   return posts.find((p) => p.slug === slug);
+}
+
+// Category hubs. Each is a landing page for a topic rather than a bare list,
+// so a category holding one post still reads as a real page. The copy below
+// only references work already described elsewhere on this site.
+export const categories = [
+  {
+    slug: "ai-engineering",
+    name: "AI Engineering",
+    summary:
+      "Retrieval-augmented generation, pgvector retrieval, LLM integration and provider fallback — how the AI in Kilele Archade actually works.",
+    intro: [
+      "Most AI features fail in production for boring reasons: the model answers from memory, nobody can tell where an answer came from, and one vendor outage takes the product down. Every AI system I have built starts from those three problems rather than from a model.",
+      "The pattern that has worked for me is retrieval-augmented generation grounded in material the product already owns — curriculum documents in Kilele Archade's case — with embeddings stored in PostgreSQL next to the relational rows they describe, a fallback provider layer behind the primary one, and a fixed question set so a retrieval change is measured instead of argued. The Lab holds the benchmarks that came out of that work.",
+    ],
+    relatedProjects: ["kilele-archade"],
+    relatedServices: ["AI & RAG Systems"],
+    relatedLab: ["rag-strategy-bench", "ai-provider-fallback-harness"],
+  },
+  {
+    slug: "product-engineering",
+    name: "Product Engineering",
+    summary:
+      "Taking a product from a real problem to shipped software: scoping, architecture decisions and building the first version yourself.",
+    intro: [
+      "Kilele Archade and Apex both started as answers to problems I could point at rather than ideas I wanted to try. That constraint changes the whole build: scope gets cut to what a real user needs this month, and the boring choices — one database, one hosting story, scripts for anything done twice — win by default.",
+      "These pieces cover the part of the job that is not typing code: deciding what the first version is, keeping solo delivery manageable, and letting actual users move the product further than any technical decision did.",
+    ],
+    relatedProjects: ["kilele-archade", "apex"],
+    relatedServices: ["Technical Product Building", "Full-Stack Web Products"],
+    relatedLab: ["automation-scripts-collection"],
+  },
+  {
+    slug: "system-architecture",
+    name: "System Architecture",
+    summary:
+      "Roles, row-level security, multi-tenancy and privacy boundaries — the structural decisions that are expensive to retrofit.",
+    intro: [
+      "The architecture decisions that matter most are usually the ones about who can see what. A learning platform with students, teachers and parents, or a rental platform with owners, managers and tenants, both collapse into the same problem: many parties over one dataset, each entitled to a different slice of it.",
+      "My default is to put that enforcement in the database rather than in application code, attach roles to relationships instead of accounts, and let each audience get a different zoom level over the same events. It keeps a bug in one endpoint from becoming a data leak across the product.",
+    ],
+    relatedProjects: ["apex", "kilele-archade"],
+    relatedServices: ["Backend APIs & Integrations", "Database & Data Platform Design"],
+    relatedLab: [],
+  },
+  {
+    slug: "databases",
+    name: "Databases",
+    summary:
+      "PostgreSQL-first data design: pgvector, row-level security, migrations and keeping embeddings beside the rows they describe.",
+    intro: [
+      "Every AI stack article assumes a dedicated vector database. I have not needed one. In Kilele Archade the vectors describe rows that already live in PostgreSQL — documents, subjects, competences — so splitting them across two systems would have bought a second security model, a second backup story and a sync problem for no capability I was using.",
+      "These notes are about that trade and the practical edges of it: picking an embedding dimension you can live with, when an index is actually worth building, and why transactions over documents and their embeddings are worth more than a marginally faster similarity search.",
+    ],
+    relatedProjects: ["kilele-archade"],
+    relatedServices: ["Database & Data Platform Design"],
+    relatedLab: [],
+  },
+];
+
+export function getCategory(slug) {
+  return categories.find((c) => c.slug === slug);
+}
+
+export function categoryForPost(post) {
+  return categories.find((c) => c.name === post.category);
+}
+
+export function postsInCategory(slug) {
+  const category = getCategory(slug);
+  return category ? posts.filter((p) => p.category === category.name) : [];
 }

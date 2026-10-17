@@ -189,6 +189,7 @@ export const navLinks = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Projects", to: "/projects" },
+  { label: "Services", to: "/services" },
   { label: "Experience", to: "/experience" },
   { label: "AI & Engineering", to: "/ai-engineering" },
   { label: "Lab", to: "/lab" },

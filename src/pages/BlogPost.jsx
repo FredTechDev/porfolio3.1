@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { getPost, posts } from '../data/blog.js'
+import { getPost, posts, categoryForPost } from '../data/blog.js'
 import { getProject } from '../data/projects.js'
 import NotFound from './NotFound.jsx'
 import { usePageSeo } from '../components/usePageSeo.js'
@@ -16,12 +16,18 @@ export default function BlogPost() {
 
   const shareUrl = encodeURIComponent(`${SITE_URL}/blog/${post.slug}`)
   const shareText = encodeURIComponent(`${post.title} — by ${profile.name}`)
+  const category = categoryForPost(post)
 
   return (
     <div className="container" style={{ paddingBlock: 'clamp(2.5rem,6vw,4rem) 4rem' }}>
       <article className="article">
         <p className="section-kicker">
-          <Link to="/blog">Blog</Link> / {post.category}
+          <Link to="/blog">Blog</Link> /{' '}
+          {category ? (
+            <Link to={`/blog/${category.slug}`}>{post.category}</Link>
+          ) : (
+            post.category
+          )}
         </p>
         <h1 style={{ fontSize: 'clamp(1.7rem, 4.5vw, 2.4rem)' }}>{post.title}</h1>
         <div className="article-meta">
@@ -40,7 +46,13 @@ export default function BlogPost() {
         ))}
 
         <div className="article-tags">
-          <span className="chip">{post.category}</span>
+          {category ? (
+            <Link className="chip" to={`/blog/${category.slug}`}>
+              {post.category}
+            </Link>
+          ) : (
+            <span className="chip">{post.category}</span>
+          )}
           {post.relatedProjects?.map((s) => {
             const p = getProject(s)
             return p ? (

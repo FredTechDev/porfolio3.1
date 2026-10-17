@@ -710,7 +710,7 @@ code {
 .nav-links {
   display: none;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.125rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -718,11 +718,12 @@ code {
 
 .nav-links a {
   display: block;
-  padding: 0.45rem 0.7rem;
+  padding: 0.45rem 0.55rem;
   border-radius: 6px;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 .nav-links a:hover {
   color: var(--text);
@@ -780,7 +781,13 @@ code {
   justify-content: center;
 }
 
-@media (min-width: 960px) {
+/* The nine nav items need the full 1120px container on one line, so the
+ * hamburger keeps the header down to just below that rather than letting the
+ * row break out of the container edge. */
+@media (min-width: 1160px) {
+  .brand {
+    white-space: nowrap;
+  }
   .nav-links {
     display: flex;
   }

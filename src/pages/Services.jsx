@@ -68,13 +68,23 @@ export default function Services() {
               marginBottom: '2.5rem',
             }}
           >
-            <img
-              src="/fredrick-onyango.jpg"
-              alt="Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
-              width="240"
-              loading="lazy"
-              style={{ borderRadius: '1rem', objectFit: 'cover' }}
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/fredrick-onyango-360w.webp 360w, /fredrick-onyango-720w.webp 720w"
+                sizes="360px"
+              />
+              <img
+                src="/fredrick-onyango-360w.jpg"
+                srcSet="/fredrick-onyango-360w.jpg 360w, /fredrick-onyango-720w.jpg 720w"
+                sizes="360px"
+                alt="Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
+                width="360"
+                height="480"
+                loading="lazy"
+                style={{ borderRadius: '1rem', objectFit: 'cover', maxWidth: 240 }}
+              />
+            </picture>
             <div style={{ flex: 1, minWidth: '280px' }}>
               <h2 style={{ marginTop: 0 }}>Working together</h2>
               <p className="muted">

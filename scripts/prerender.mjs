@@ -26,7 +26,10 @@ const esc = (v) =>
 function buildSitemap() {
   const urls = sitemapPaths()
     .map(({ path, lastmod, image }) => {
-      const inner = `<loc>${esc(urlFor(path))}</loc><lastmod>${lastmod}</lastmod>`
+      // lastmod is only emitted where the content carries a real date; a
+      // sitemap of identical timestamps teaches Google to ignore the field.
+      const stamp = lastmod ? `<lastmod>${lastmod}</lastmod>` : ''
+      const inner = `<loc>${esc(urlFor(path))}</loc>${stamp}`
       if (!image) return `    <url>${inner}</url>`
       const img =
         `<image:image><image:loc>${esc(image.url)}</image:loc>` +

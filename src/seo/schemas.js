@@ -17,6 +17,10 @@ export const personRef = {
   url: SITE_URL,
 }
 
+// Google refuses Product rich results with no image and cannot build an
+// Article carousel without one, so every entity points at its own card.
+export const ogCard = (name) => `${SITE_URL}/og/${name}.png`
+
 export function buildKileleOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
@@ -47,6 +51,7 @@ export function buildProductSchema(project) {
     '@type': 'Product',
     name: project.name,
     description: project.summary,
+    image: [ogCard(`project-${project.slug}`)],
     url: `${SITE_URL}/projects/${project.slug}`,
     brand: { '@type': 'Brand', name: profile.name },
     author: personRef,
@@ -76,7 +81,6 @@ export function buildSoftwareApplicationSchema(project) {
     }),
     featureList: project.caseStudy?.features || [],
     softwareVersion: '1.0',
-    datePublished: '2025-01-01',
     keywords: project.stack.join(', '),
   }
 }
@@ -105,6 +109,7 @@ export function buildBlogPostingSchema(post) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
+    image: [ogCard(`blog-${post.slug}`)],
     url: `${SITE_URL}/blog/${post.slug}`,
     datePublished: post.date,
     dateModified: post.date,
@@ -117,7 +122,7 @@ export function buildBlogPostingSchema(post) {
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${post.slug}` },
     articleSection: post.category,
-    keywords: [post.category, 'AI Engineering', 'Software Engineering', 'Kenya'].join(', '),
+    keywords: [post.category, ...(post.topics || []), 'Software Engineering', 'Kenya'].join(', '),
     wordCount: wordCount(post),
     timeRequired: `PT${post.readingMinutes}M`,
     inLanguage: 'en-KE',
