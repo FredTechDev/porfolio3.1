@@ -64,6 +64,7 @@ export default function Contact() {
 
   const channels = [
     { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+    { label: 'WhatsApp', value: 'Chat on WhatsApp', href: profile.whatsapp },
     { label: 'LinkedIn', value: profile.linkedin.replace('https://', ''), href: profile.linkedin },
     { label: 'GitHub', value: profile.github.replace('https://', ''), href: profile.github },
   ]

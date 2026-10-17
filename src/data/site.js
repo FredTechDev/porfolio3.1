@@ -16,6 +16,7 @@ export const profile = {
   heroSupporting:
     "From system architecture and backend engineering to AI integration, databases, cloud infrastructure, and modern frontend development, I build technology with a focus on usability, scalability, and real-world impact.",
   email: "onyangofred1005@gmail.com",
+  whatsapp: "https://wa.me/254729534077",
   cvPath: "/Fredrick-Onyango-CV.pdf",
   github: "https://github.com/FredTechDev", // TODO: verify username
   linkedin: "https://www.linkedin.com/in/fredrickonyango", // TODO: verify slug
