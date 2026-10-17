@@ -3,6 +3,28 @@ import { SITE_URL, profile } from '../data/site.js'
 const CODE_LANGUAGES = ['TypeScript', 'JavaScript', 'Python', 'Java', 'Go', 'C++', 'C']
 const publicLive = (live) => live && !live.includes('example.com')
 
+// Stable entity IDs: every schema node that describes the same person or
+// product references these, so Google merges them into one knowledge graph.
+export const PERSON_ID = `${SITE_URL}/#person`
+export const KILELE_URL = 'https://kilelearchade.co.ke'
+export const KILELE_ORG_ID = `${KILELE_URL}#organization`
+
+export const personRef = { '@type': 'Person', '@id': PERSON_ID, name: profile.name, url: SITE_URL }
+
+export function buildKileleOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': KILELE_ORG_ID,
+    name: 'Kilele Archade',
+    url: KILELE_URL,
+    description:
+      'AI-powered CBC learning platform for Kenyan students, teachers and parents — document-based learning, a grounded AI tutor, quizzes and role dashboards. Built by Fredrick Onyango.',
+    founder: personRef,
+    employee: personRef,
+  }
+}
+
 export function buildProductSchema(project) {
   const offers = publicLive(project.live)
     ? {
@@ -21,7 +43,7 @@ export function buildProductSchema(project) {
     description: project.summary,
     url: `${SITE_URL}/projects/${project.slug}`,
     brand: { '@type': 'Brand', name: profile.name },
-    author: { '@type': 'Person', name: profile.name },
+    author: personRef,
     ...(offers && { offers }),
     category: project.tags.join(', '),
     keywords: project.stack.join(', '),
@@ -36,7 +58,7 @@ export function buildSoftwareApplicationSchema(project) {
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Cloud, Web, Cross-platform',
     ...(publicLive(project.live) && { url: project.live }),
-    author: { '@type': 'Person', name: profile.name },
+    author: personRef,
     ...(publicLive(project.live) && {
       offers: {
         '@type': 'Offer',
@@ -62,7 +84,7 @@ export function buildSoftwareSourceCodeSchema({ name, description, repoUrl, lang
     codeRepository: repoUrl,
     programmingLanguage: language,
     datePublished,
-    author: { '@type': 'Person', name: profile.name },
+    author: personRef,
     dependsOn: 'GitHub',
   }
 }
@@ -80,9 +102,10 @@ export function buildBlogPostingSchema(post) {
     url: `${SITE_URL}/blog/${post.slug}`,
     datePublished: post.date,
     dateModified: post.date,
-    author: { '@type': 'Person', name: post.author, url: SITE_URL },
+    author: personRef,
     publisher: {
       '@type': 'Organization',
+      '@id': `${SITE_URL}/#brand`,
       name: profile.name,
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-cover.png` },
     },

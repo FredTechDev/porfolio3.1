@@ -5,6 +5,8 @@ import AboutPage from './pages/About.jsx'
 import ExperiencePage from './pages/Experience.jsx'
 import AiEngineeringPage from './pages/AiEngineering.jsx'
 import LabPage from './pages/Lab.jsx'
+import LabExperiment from './pages/LabExperiment.jsx'
+import Services from './pages/Services.jsx'
 import ContactPage from './pages/Contact.jsx'
 import Projects from './pages/Projects.jsx'
 import ProjectDetail from './pages/ProjectDetail.jsx'
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="experience" element={<ExperiencePage />} />
         <Route path="ai-engineering" element={<AiEngineeringPage />} />
         <Route path="lab" element={<LabPage />} />
+        <Route path="lab/:slug" element={<LabExperiment />} />
+        <Route path="services" element={<Services />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:slug" element={<ProjectDetail />} />

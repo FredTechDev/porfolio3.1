@@ -3,6 +3,93 @@
 
 export const posts = [
   {
+    slug: "building-kilele-archade-ai-learning-platform-kenya",
+    title: "Building Kilele Archade: an AI Learning Platform for Kenya's CBC Curriculum",
+    date: "2026-10-12",
+    category: "Product Engineering",
+    readingMinutes: 7,
+    author: "Fredrick Onyango",
+    relatedProjects: ["kilele-archade"],
+    excerpt:
+      "The full story behind kilelearchade.co.ke — why I built a CBC-focused AI tutor in Nairobi, how the product took shape, and what shipping a real platform for Kenyan students and teachers taught me.",
+    body: [
+      {
+        h: "Why build an EdTech product in Kenya",
+        p: [
+          "The CBC competence-based curriculum asks students to explore, and teachers to guide across large classes with limited resources. Generic chatbots do not know the CBC syllabus, a Kenyan school's notes or a student's actual competence level. I wanted an AI tutor grounded in the material students are actually examined on — built here in Nairobi, shipping to real classrooms.",
+          "Kilele Archade (kilelearchade.co.ke) is that product: document-based learning, an AI tutor that cites the source, quizzes with explanations, and separate dashboards for learners, teachers and parents.",
+        ],
+      },
+      {
+        h: "The architecture in one paragraph",
+        p: [
+          "React and TypeScript on the front. Supabase and PostgreSQL behind it — with pgvector holding embeddings next to the relational rows for subjects, levels and competences, so retrieval is a query, not a separate service. Curriculum documents flow through an ingestion pipeline into chunks and vectors; the tutor answers only from retrieved context, with a fallback provider layer so a single AI vendor outage never reaches a student.",
+        ],
+      },
+      {
+        h: "What the classrooms changed",
+        p: [
+          "Building alone gets you to 'it works'. Real users get you to 'it works for them'. Early teacher feedback moved the product more than any technical decision: answers had to show which document page they came from before teachers would trust the tutor at all; the tutor may explain and hint, but assessment sessions run with that context locked away.",
+        ],
+      },
+      {
+        h: "Solo, but not unmanaged",
+        p: [
+          "One engineer holding product, frontend, backend, AI pipeline and deployments forces boring choices: one database, one hosting story, scripts for anything done twice, and a retrieval bench (see the Lab) so configuration changes are measured instead of argued with myself.",
+        ],
+      },
+      {
+        h: "Where it goes from here",
+        p: [
+          "Kilele Archade is live at kilelearchade.co.ke and still evolving through classroom feedback. The next fronts are broader subject coverage, offline-friendly access for areas with patchy connectivity, and better analytics so a teacher sees a struggling student before report day does.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "role-based-dashboards-teachers-students-parents",
+    title: "Role-Based Dashboards for Teachers, Students and Parents",
+    date: "2026-08-20",
+    category: "System Architecture",
+    readingMinutes: 5,
+    author: "Fredrick Onyango",
+    relatedProjects: ["kilele-archade"],
+    excerpt:
+      "One learning platform, three very different users. How the teacher/student/parent model behind Kilele Archade was designed — roles, row-level security and the privacy boundaries between them.",
+    body: [
+      {
+        h: "Three users, three different questions",
+        p: [
+          "A student opens the app asking 'what do I learn next?'. A teacher asks 'who is stuck?'. A parent asks 'is my child actually working?'. A single dashboard answering all three answers none of them well, so Kilele Archade ships one application with three distinct surfaces over the same data.",
+        ],
+      },
+      {
+        h: "The role model",
+        p: [
+          "Roles attach at the relationship level, not just the account level: a teacher belongs to a class, a parent is linked to specific students, a student is enrolled in subjects. Every request resolves what the caller can see through those links before any content query runs.",
+        ],
+      },
+      {
+        h: "Enforcing it with row-level security",
+        p: [
+          "Rather than trusting application code alone, visibility lives in Supabase policies: rows carry their class and linkage, and the database refuses reads that do not match the caller's role claims. A bug in one endpoint cannot turn into a data leak across the platform.",
+        ],
+      },
+      {
+        h: "The privacy boundary nobody mentions",
+        p: [
+          "A parent should see that a child is engaging and progressing — not every answer they got wrong in a private study session. The dashboards were deliberately asymmetric: learners get granular self-view, guardians get aggregated signals, teachers get class-level detail. Same events, three zoom levels.",
+        ],
+      },
+      {
+        h: "What I would reuse",
+        p: [
+          "Relationship-scoped roles, database-enforced visibility and zoom-level dashboards are not EdTech-specific. Any multi-sided product — clinics, gyms, tutoring, PropTech rentals like Apex — needs exactly this skeleton, and designing it early is much cheaper than retrofitting it after the first privacy conversation.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "building-a-rag-system-for-an-educational-platform",
     title: "Building a RAG System for an Educational Platform",
     date: "2026-06-18",

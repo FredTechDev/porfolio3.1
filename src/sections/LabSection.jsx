@@ -1,5 +1,6 @@
 import { labExperiments } from '../data/lab.js'
 import TechIcon from '../components/TechIcon.jsx'
+import { Link } from 'react-router-dom'
 
 export default function LabSection() {
   return (
@@ -8,7 +9,9 @@ export default function LabSection() {
         <div className="grid grid--3">
           {labExperiments.map((x) => (
             <article className="card card--hover" key={x.name}>
-              <h3>{x.name}</h3>
+              <h3>
+                <Link to={`/lab/${x.slug}`}>{x.name}</Link>
+              </h3>
               <p className="muted" style={{ fontSize: '0.92rem' }}>
                 {x.description}
               </p>
@@ -20,13 +23,16 @@ export default function LabSection() {
                   </span>
                 ))}
               </div>
-              {x.repo && (
-                <div className="btn-row">
+              <div className="btn-row">
+                <Link className="btn btn--ghost btn--sm" to={`/lab/${x.slug}`}>
+                  Details
+                </Link>
+                {x.repo && (
                   <a className="btn btn--ghost btn--sm" href={x.repo} rel="noopener noreferrer">
                     GitHub
                   </a>
-                </div>
-              )}
+                )}
+              </div>
             </article>
           ))}
         </div>

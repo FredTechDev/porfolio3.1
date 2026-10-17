@@ -1,24 +1,31 @@
-import { profile, SITE_URL, education, certifications, experiences } from '../data/site.js'
+import { profile, SITE_URL, education, certifications, experiences, services } from '../data/site.js'
 import { projects, getProject } from '../data/projects.js'
 import { posts, getPost } from '../data/blog.js'
-import { labExperiments } from '../data/lab.js'
+import { labExperiments, getLabExperiment } from '../data/lab.js'
+import { SAME_AS } from './head.js'
 import {
   buildBlogPostingSchema,
   buildProductSchema,
   buildSoftwareApplicationSchema,
   buildSoftwareSourceCodeSchema,
+  buildKileleOrganizationSchema,
   postFaqs,
   repoLanguage,
   wordCount,
+  PERSON_ID,
+  KILELE_ORG_ID,
+  KILELE_URL,
+  personRef,
 } from './schemas.js'
 
-const UPDATED = '2026-01-15'
+const UPDATED = '2026-10-17'
 const ogCover = `${SITE_URL}/og-cover.png`
 
 const PORTRAIT = `${SITE_URL}/fredrick-onyango.jpg`
 
 const personEntity = (extra = {}) => ({
   '@type': 'Person',
+  '@id': PERSON_ID,
   name: profile.name,
   jobTitle: profile.role,
   url: SITE_URL,
@@ -40,8 +47,13 @@ const personEntity = (extra = {}) => ({
     'Java',
     'Spring Boot',
   ],
-  sameAs: [profile.github, profile.linkedin],
-  worksFor: { '@type': 'Organization', name: profile.name },
+  sameAs: SAME_AS,
+  worksFor: {
+    '@type': 'Organization',
+    '@id': KILELE_ORG_ID,
+    name: 'Kilele Archade',
+    url: KILELE_URL,
+  },
   ...extra,
 })
 
@@ -58,6 +70,7 @@ const home = {
     caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
   },
   extraSchema: { '@type': 'ProfilePage', mainEntity: personEntity() },
+  jsonLd: [buildKileleOrganizationSchema()],
 }
 
 const about = {
@@ -67,6 +80,11 @@ const about = {
   path: '/about',
   type: 'ProfilePage',
   lastmod: UPDATED,
+  ogImage: PORTRAIT,
+  sitemapImage: {
+    url: PORTRAIT,
+    caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer from Nairobi, Kenya',
+  },
   extraSchema: {
     '@type': 'ProfilePage',
     mainEntity: personEntity({
@@ -210,6 +228,41 @@ const blogPage = {
   },
 }
 
+const servicesPage = {
+  title: 'Services — Hire Fredrick Onyango | Full-Stack, Backend & AI/ML Developer (Kenya / Remote)',
+  description:
+    'Hire Fredrick Onyango for end-to-end software delivery: AI/ML and RAG systems, full-stack React products, backend APIs in Node.js and Spring Boot, PostgreSQL data design and cloud deployments. Kenya-based, available for remote work globally.',
+  path: '/services',
+  type: 'WebPage',
+  lastmod: UPDATED,
+  ogImage: PORTRAIT,
+  sitemapImage: {
+    url: PORTRAIT,
+    caption:
+      'Fredrick Onyango — Full-Stack, Backend and AI/ML Developer available for hire in Kenya and remotely',
+  },
+  extraSchema: {
+    '@type': 'ItemList',
+    name: 'Engineering Services',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: s.title,
+        serviceType: s.type,
+        description: s.body,
+        provider: personRef,
+        areaServed: [
+          { '@type': 'Country', name: 'Kenya' },
+          { '@type': 'Place', name: 'Worldwide (remote)' },
+        ],
+        url: `${SITE_URL}/services`,
+      },
+    })),
+  },
+}
+
 const contact = {
   title: 'Contact — Fredrick Onyango | Hire Full-Stack, Backend & AI/ML Engineer (Kenya/Remote)',
   description:
@@ -248,6 +301,7 @@ function projectDetail(slug) {
     extraSchema: buildSoftwareApplicationSchema(project),
     jsonLd: [
       buildProductSchema(project),
+      project.slug === 'kilele-archade' && buildKileleOrganizationSchema(),
       project.repo &&
         buildSoftwareSourceCodeSchema({
           name: `${project.name} Source Code`,
@@ -299,6 +353,35 @@ function blogDetail(slug) {
   }
 }
 
+function labDetail(slug) {
+  const exp = getLabExperiment(slug)
+  if (!exp) return notFound(`/lab/${slug}`)
+
+  return {
+    title: `${exp.name} — Lab Experiment | ${profile.name}`,
+    description: exp.description,
+    path: `/lab/${exp.slug}`,
+    type: 'WebPage',
+    lastmod: UPDATED,
+    extraSchema: {
+      '@type': 'TechArticle',
+      headline: exp.name,
+      description: exp.description,
+      author: personRef,
+      datePublished: exp.date,
+      keywords: [...exp.stack, 'IoT', 'AI Engineering', 'Kenya'].join(', '),
+      inLanguage: 'en-KE',
+    },
+    jsonLd: buildSoftwareSourceCodeSchema({
+      name: exp.name,
+      description: exp.description,
+      repoUrl: exp.repo,
+      language: repoLanguage(exp.stack),
+      datePublished: exp.date,
+    }),
+  }
+}
+
 /**
  * Clean redirect routes. They exist so links can be shared as short aliases;
  * they are never indexable and carry no canonical of their own beyond the
@@ -337,7 +420,7 @@ function notFound(path = '/') {
   }
 }
 
-const indexables = [home, projectsPage, about, experience, aiEngineering, lab, contact, blogPage]
+const indexables = [home, projectsPage, about, servicesPage, experience, aiEngineering, lab, contact, blogPage]
 
 export function getSeo(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/'
@@ -350,6 +433,9 @@ export function getSeo(pathname) {
   const project = /^\/projects\/([^/]+)$/.exec(path)
   if (project) return projectDetail(project[1])
 
+  const labExperiment = /^\/lab\/([^/]+)$/.exec(path)
+  if (labExperiment) return labDetail(labExperiment[1])
+
   const post = /^\/blog\/([^/]+)$/.exec(path)
   if (post) return blogDetail(post[1])
 
@@ -361,6 +447,7 @@ export function allSeoPaths() {
   return [
     ...indexables.map((o) => o.path),
     ...projects.filter((p) => p.featured).map((p) => `/projects/${p.slug}`),
+    ...labExperiments.map((x) => `/lab/${x.slug}`),
     ...posts.map((p) => `/blog/${p.slug}`),
     ...redirectRoutes.map((s) => s.path),
   ]
@@ -373,6 +460,7 @@ export function sitemapPaths() {
     ...projects
       .filter((p) => p.featured)
       .map((p) => ({ path: `/projects/${p.slug}`, lastmod: UPDATED })),
+    ...labExperiments.map((x) => ({ path: `/lab/${x.slug}`, lastmod: UPDATED })),
     ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.date })),
   ]
 }

@@ -35,6 +35,20 @@ Fredrick Onyango is a Kenya-based software engineer specializing in full-stack d
 
 ## Technical Blog Posts
 
+### Building Kilele Archade: an AI Learning Platform for Kenya's CBC Curriculum
+- **URL:** https://fredrickonyango.vercel.app/blog/building-kilele-archade-ai-learning-platform-kenya
+- **Date:** 2026-10-12
+- **Category:** Product Engineering
+- **Summary:** The full story behind kilelearchade.co.ke — why Fredrick Onyango built a CBC-focused AI tutor in Nairobi, the architecture, and what shipping to real Kenyan classrooms taught him.
+- **Key Topics:** Kilele Archade, EdTech Kenya, CBC curriculum, AI tutor, RAG, Supabase, pgvector, solo product engineering
+
+### Role-Based Dashboards for Teachers, Students and Parents
+- **URL:** https://fredrickonyango.vercel.app/blog/role-based-dashboards-teachers-students-parents
+- **Date:** 2026-08-20
+- **Category:** System Architecture
+- **Summary:** One learning platform, three very different users — the role model, Supabase row-level security and privacy boundaries behind Kilele Archade's teacher/student/parent dashboards.
+- **Key Topics:** Role-based access, row-level security, Supabase, dashboard design, data privacy, EdTech
+
 ### Building a RAG System for an Educational Platform
 - **URL:** https://fredrickonyango.vercel.app/blog/building-a-rag-system-for-an-educational-platform
 - **Date:** 2026-06-18
@@ -59,26 +73,31 @@ Fredrick Onyango is a Kenya-based software engineer specializing in full-stack d
 ## Lab Experiments (Open Source)
 
 ### ESP32 Smart Weather System
+- **Page:** https://fredrickonyango.vercel.app/lab/esp32-smart-weather-system
 - **Repo:** https://github.com/FredTechDev/esp32-weather
 - **Description:** IoT experiment using environmental sensors, MQTT, and cloud services to collect and process environmental data.
 - **Stack:** ESP32, MQTT, C++, Cloud
 
 ### RAG Strategy Bench
+- **Page:** https://fredrickonyango.vercel.app/lab/rag-strategy-bench
 - **Repo:** https://github.com/FredTechDev/rag-explorer
 - **Description:** Side-by-side evaluation of chunk sizes, embedding models and retrieval strategies on the same document set.
 - **Stack:** Python, pgvector, LLM APIs
 
 ### AI Provider Fallback Harness
+- **Page:** https://fredrickonyango.vercel.app/lab/ai-provider-fallback-harness
 - **Repo:** https://github.com/FredTechDev/provider-fallback
 - **Description:** Test rig that simulates provider failures to verify transparent failover across LLM backends.
 - **Stack:** Node.js, TypeScript, LLM APIs
 
 ### Computer Vision Attendance
+- **Page:** https://fredrickonyango.vercel.app/lab/computer-vision-attendance
 - **Repo:** https://github.com/FredTechDev/vision-attendance
 - **Description:** Face-embedding based attendance prototype with all processing kept on-device.
 - **Stack:** Python, OpenCV
 
 ### Automation Scripts Collection
+- **Page:** https://fredrickonyango.vercel.app/lab/automation-scripts-collection
 - **Repo:** https://github.com/FredTechDev/automation
 - **Description:** Deployment, data-cleaning and repo-automation scripts that removed daily manual chores.
 - **Stack:** Bash, Python, CI/CD
@@ -114,6 +133,7 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 ## Site Navigation
 - **Home:** https://fredrickonyango.vercel.app/
 - **About:** https://fredrickonyango.vercel.app/about
+- **Services:** https://fredrickonyango.vercel.app/services
 - **Projects:** https://fredrickonyango.vercel.app/projects
 - **Experience:** https://fredrickonyango.vercel.app/experience
 - **AI & Engineering:** https://fredrickonyango.vercel.app/ai-engineering
@@ -121,9 +141,15 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 - **Blog:** https://fredrickonyango.vercel.app/blog
 - **Contact:** https://fredrickonyango.vercel.app/contact
 
+## Services — Hire Fredrick Onyango
+- **URL:** https://fredrickonyango.vercel.app/services
+- **Offer:** AI & RAG systems, full-stack web products, backend APIs & integrations, PostgreSQL/pgvector data design, cloud deployment & DevOps, technical product building.
+- **Location:** Nairobi, Kenya — available for freelance contracts and remote work globally.
+
 ## Structured Data Available
 - Person (Fredrick Onyango)
 - Organization (Fredrick Onyango)
+- Organization (Kilele Archade, kilelearchade.co.ke — founder: Fredrick Onyango)
 - WebSite
 - WebPage (all pages)
 - BreadcrumbList (all pages)
@@ -135,6 +161,8 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 - CollectionPage (projects, lab, blog)
 - ProfilePage (home, about)
 - ContactPage (contact)
+- Service (services page)
+- TechArticle (lab experiment pages)
 - FAQPage (blog posts)
 - ItemList (project collections, experience)
 

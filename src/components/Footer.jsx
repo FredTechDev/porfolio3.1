@@ -4,6 +4,7 @@ import { profile } from '../data/site.js'
 const explore = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
+  { label: 'Services', to: '/services' },
   { label: 'Projects', to: '/projects' },
   { label: 'Experience', to: '/experience' },
   { label: 'Lab', to: '/lab' },
@@ -19,7 +20,8 @@ const professional = [
 ]
 
 const products = [
-  { label: 'Kilele Archade', to: '/projects/kilele-archade' },
+  { label: 'Kilele Archade', href: 'https://kilelearchade.co.ke' },
+  { label: 'Kilele Archade — Case Study', to: '/projects/kilele-archade' },
   { label: 'Apex', to: '/projects/apex' },
 ]
 
@@ -63,7 +65,13 @@ export default function Footer() {
             <ul>
               {products.map((l) => (
                 <li key={l.label}>
-                  <Link to={l.to}>{l.label}</Link>
+                  {l.href ? (
+                    <a href={l.href} rel="noopener noreferrer">
+                      {l.label}
+                    </a>
+                  ) : (
+                    <Link to={l.to}>{l.label}</Link>
+                  )}
                 </li>
               ))}
             </ul>

@@ -1,7 +1,15 @@
 import { SITE_URL, profile } from '../data/site.js'
+import { PERSON_ID, personRef } from './schemas.js'
 
 export const BRAND = 'Fredrick Onyango'
 const OG_IMAGE = `${SITE_URL}/og-cover.png`
+export const SAME_AS = [
+  profile.github,
+  profile.linkedin,
+  profile.x,
+  profile.devpost,
+  `${SITE_URL}${profile.cvPath}`,
+].filter(Boolean)
 
 export function urlFor(path) {
   return path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
@@ -101,8 +109,14 @@ function buildSchemas({ title, description, path, type, extraSchema, jsonLd }) {
       name: title,
       description,
       url: urlFor(path),
-      isPartOf: { '@type': 'WebSite', name: `${BRAND} — Portfolio`, url: SITE_URL },
-      author: { '@type': 'Person', name: profile.name, url: SITE_URL },
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        name: `${BRAND} — Portfolio`,
+        url: SITE_URL,
+        publisher: personRef,
+      },
+      author: personRef,
       publisher: {
         '@type': 'Organization',
         name: BRAND,
@@ -141,10 +155,11 @@ function buildOrganization() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${SITE_URL}/#brand`,
     name: BRAND,
     url: SITE_URL,
     logo: OG_IMAGE,
-    sameAs: [profile.github, profile.linkedin],
+    sameAs: SAME_AS,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
@@ -153,7 +168,7 @@ function buildOrganization() {
       areaServed: 'KE',
     },
     address: { '@type': 'PostalAddress', addressCountry: 'KE', addressRegion: 'Nairobi' },
-    founder: { '@type': 'Person', name: profile.name, url: SITE_URL },
+    founder: personRef,
   }
 }
 

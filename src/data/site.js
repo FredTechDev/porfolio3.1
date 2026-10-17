@@ -18,6 +18,8 @@ export const profile = {
   cvPath: "/Fredrick-Onyango-CV.pdf",
   github: "https://github.com/FredTechDev", // TODO: verify username
   linkedin: "https://www.linkedin.com/in/fredrickonyango", // TODO: verify slug
+  x: "https://x.com/FredTechDev", // TODO: verify handle
+  devpost: "https://devpost.com/onyangofred1005", // TODO: verify profile URL slug
 };
 
 export const availability = {
@@ -89,6 +91,39 @@ export const skillGroups = [
   {
     category: "Cloud / DevOps",
     items: ["Docker", "Git", "GitHub", "Linux", "Cloudflare", "Render", "CI/CD"],
+  },
+];
+
+export const services = [
+  {
+    title: "AI & RAG Systems",
+    type: "AI/ML Engineering",
+    body: "Retrieval-augmented assistants grounded in your documents: ingestion pipelines, pgvector retrieval, LLM integration with provider fallback, and evaluation you can measure.",
+  },
+  {
+    title: "Full-Stack Web Products",
+    type: "Web Development",
+    body: "End-to-end product delivery with React/TypeScript frontends and Node.js or Spring Boot backends — from database schema to deployed, production-ready software.",
+  },
+  {
+    title: "Backend APIs & Integrations",
+    type: "Backend Development",
+    body: "REST APIs, third-party service integration, authentication and role-based access, payment and communication workflows built to stay maintainable.",
+  },
+  {
+    title: "Database & Data Platform Design",
+    type: "Database Engineering",
+    body: "PostgreSQL-first data modelling: schemas, row-level security, migrations, and pgvector embeddings kept next to the relational data they describe.",
+  },
+  {
+    title: "Cloud Deployment & DevOps",
+    type: "DevOps",
+    body: "Dockerised deployments, CI/CD pipelines, hosting setup on Vercel/Render/Cloudflare and monitoring so releases are boring instead of dramatic.",
+  },
+  {
+    title: "Technical Product Building",
+    type: "Product Engineering",
+    body: "Founder experience taking ideas to live products (Kilele Archade, Apex): scoping, architecture decisions and shipping the first version yourself.",
   },
 ];
 
