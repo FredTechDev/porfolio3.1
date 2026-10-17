@@ -53,6 +53,10 @@ export default function About() {
               <span>{profile.location}</span>
             </li>
             <li>
+              <strong>Also known as</strong>
+              <span>{profile.nicknames.join(' · ')}</span>
+            </li>
+            <li>
               <strong>Focus areas</strong>
               <span>Full-stack · Backend · AI/ML · Data · Cloud · Architecture</span>
             </li>

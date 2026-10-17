@@ -27,6 +27,7 @@ const personEntity = (extra = {}) => ({
   '@type': 'Person',
   '@id': PERSON_ID,
   name: profile.name,
+  alternateName: profile.nicknames,
   jobTitle: profile.role,
   url: SITE_URL,
   image: PORTRAIT,
@@ -278,6 +279,7 @@ const contact = {
     mainEntity: {
       '@type': 'Person',
       name: profile.name,
+      alternateName: profile.nicknames,
       email: `mailto:${profile.email}`,
       url: SITE_URL,
       sameAs: [profile.github, profile.linkedin],

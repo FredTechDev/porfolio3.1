@@ -7,6 +7,7 @@ export const SITE_URL = "https://fredrickonyango.vercel.app";
 
 export const profile = {
   name: "Fredrick Onyango",
+  nicknames: ["The Tech Magician", "Amirion Prince"],
   role: "Full-Stack Developer | Backend Engineer | AI/ML Engineer",
   shortRole: "Software Engineer | AI Builder | Product Innovator",
   location: "Kenya",

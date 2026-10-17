@@ -33,6 +33,9 @@ export default function Footer() {
           <div className="footer-brand">
             <p className="footer-name">{profile.name}</p>
             <p>{profile.role}</p>
+            <p className="footer-aka">
+              Also known as {profile.nicknames.join(' · ')}
+            </p>
             <a className="btn btn--ghost btn--sm" href={profile.cvPath} download>
               Download CV
             </a>

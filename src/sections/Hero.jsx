@@ -12,6 +12,15 @@ export default function Hero() {
           </p>
           <h1 id="hero-name">{profile.name}</h1>
           <p className="hero-role">{profile.role}</p>
+          <p className="hero-aka">
+            Also known as{' '}
+            {profile.nicknames.map((n, i) => (
+              <span key={n}>
+                {i > 0 && ' · '}
+                {n}
+              </span>
+            ))}
+          </p>
           <p className="hero-tagline">{profile.tagline}</p>
           <p className="hero-supporting">{profile.heroSupporting}</p>
 

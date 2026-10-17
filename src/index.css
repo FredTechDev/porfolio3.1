@@ -886,6 +886,19 @@ code {
   margin-bottom: 1.1rem;
 }
 
+.hero-aka {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: -0.6rem;
+  margin-bottom: 1.1rem;
+  font-style: italic;
+}
+.hero-aka span {
+  color: var(--text);
+  font-weight: 600;
+  font-style: normal;
+}
+
 .hero-tagline {
   font-size: clamp(1.05rem, 2.2vw, 1.2rem);
   max-width: 640px;

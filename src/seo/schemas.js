@@ -9,7 +9,13 @@ export const PERSON_ID = `${SITE_URL}/#person`
 export const KILELE_URL = 'https://kilelearchade.co.ke'
 export const KILELE_ORG_ID = `${KILELE_URL}#organization`
 
-export const personRef = { '@type': 'Person', '@id': PERSON_ID, name: profile.name, url: SITE_URL }
+export const personRef = {
+  '@type': 'Person',
+  '@id': PERSON_ID,
+  name: profile.name,
+  alternateName: profile.nicknames,
+  url: SITE_URL,
+}
 
 export function buildKileleOrganizationSchema() {
   return {
