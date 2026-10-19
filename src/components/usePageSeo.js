@@ -11,14 +11,21 @@ function setMeta(attr, name, content) {
   el.setAttribute('content', content)
 }
 
-function setLink(rel, href) {
-  let el = document.head.querySelector(`link[rel="${rel}"]`)
+// Some rels legitimately repeat with different hrefs (preconnect); others are
+// singletons that must be updated in place across navigation (canonical, the
+// RSS alternate). Matching preconnect on rel+href keeps all four, while the
+// singleton path avoids leaving a stale canonical behind.
+const REPEATABLE = new Set(['preconnect', 'preload', 'dns-prefetch', 'modulepreload'])
+
+function setLink(link) {
+  const base = `link[rel="${link.rel}"]`
+  const selector = REPEATABLE.has(link.rel) ? `${base}[href="${link.href}"]` : base
+  let el = document.head.querySelector(selector)
   if (!el) {
     el = document.createElement('link')
-    el.rel = rel
     document.head.appendChild(el)
   }
-  el.href = href
+  for (const [key, value] of Object.entries(link)) el.setAttribute(key, value)
 }
 
 /**
@@ -34,7 +41,7 @@ export function usePageSeo(opts) {
     for (const { name, property, content } of head.metas) {
       setMeta(name ? 'name' : 'property', name || property, content)
     }
-    for (const { rel, href } of head.links) setLink(rel, href)
+    for (const link of head.links) setLink(link)
     document.head.querySelectorAll('meta[http-equiv="refresh"]').forEach((el) => el.remove())
     if (head.metaRefresh) {
       const el = document.createElement('meta')

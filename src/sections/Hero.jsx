@@ -49,16 +49,16 @@ export default function Hero() {
 
         <figure className="hero-photo">
           {/* The frame is capped at 340px by .hero-photo, so 360w covers 1x and
-              720w covers 2x. The full-resolution original stays schema-only. */}
+              720w covers 2x. */}
           <picture>
             <source
               type="image/webp"
-              srcSet="/fredrick-onyango-360w.webp 360w, /fredrick-onyango-720w.webp 720w"
+              srcSet="/fred1-360w.webp 360w, /fred1-720w.webp 720w"
               sizes="360px"
             />
             <img
-              src="/fredrick-onyango-360w.jpg"
-              srcSet="/fredrick-onyango-360w.jpg 360w, /fredrick-onyango-720w.jpg 720w"
+              src="/fred1-360w.jpg"
+              srcSet="/fred1-360w.jpg 360w, /fred1-720w.jpg 720w"
               sizes="360px"
               alt="Fredrick Onyango, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
               width="360"

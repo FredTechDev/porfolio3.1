@@ -3,6 +3,7 @@ import { PERSON_ID, personRef } from './schemas.js'
 
 export const BRAND = 'Fredrick Onyango'
 const OG_IMAGE = `${SITE_URL}/og-cover.png`
+const LOGO_IMAGE = `${SITE_URL}/fred1-logo.jpg`
 export const SAME_AS = [
   profile.github,
   profile.linkedin,
@@ -77,6 +78,7 @@ export function buildHead(opts) {
     { property: 'og:description', content: description },
     { property: 'og:url', content: url },
     { property: 'og:image', content: img },
+    { property: 'og:image:secure_url', content: img },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '630' },
     { property: 'og:image:alt', content: title },
@@ -104,6 +106,7 @@ export function buildHead(opts) {
     metas,
     links: [
       { rel: 'canonical', href: url },
+      { rel: 'alternate', type: 'application/rss+xml', title: `${BRAND} — Blog feed`, href: `${SITE_URL}/feed.xml` },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'preconnect', href: 'https://res.cloudinary.com' },
@@ -114,25 +117,15 @@ export function buildHead(opts) {
 
 function buildSchemas({ title, description, path, type, extraSchema, jsonLd }) {
   const schemas = [
+    buildWebSite(),
     {
       '@context': 'https://schema.org',
       '@type': type,
       name: title,
       description,
       url: urlFor(path),
-      isPartOf: {
-        '@type': 'WebSite',
-        '@id': `${SITE_URL}/#website`,
-        name: `${BRAND} — Portfolio`,
-        url: SITE_URL,
-        publisher: personRef,
-      },
+      isPartOf: { '@type': 'WebSite', '@id': WEBSITE_ID },
       author: personRef,
-      publisher: {
-        '@type': 'Organization',
-        name: BRAND,
-        logo: { '@type': 'ImageObject', url: OG_IMAGE },
-      },
       inLanguage: 'en',
       ...extraSchema,
     },
@@ -142,6 +135,22 @@ function buildSchemas({ title, description, path, type, extraSchema, jsonLd }) {
 
   if (jsonLd) schemas.push(...(Array.isArray(jsonLd) ? jsonLd : [jsonLd]))
   return schemas
+}
+
+const WEBSITE_ID = `${SITE_URL}/#website`
+
+function buildWebSite() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': WEBSITE_ID,
+    url: SITE_URL,
+    name: `${BRAND} — Portfolio`,
+    description:
+      'Portfolio and technical writing by Fredrick Onyango — full-stack, backend and AI/ML engineering from Nairobi, Kenya.',
+    inLanguage: 'en',
+    publisher: { '@type': 'Organization', '@id': `${SITE_URL}/#brand` },
+  }
 }
 
 function buildBreadcrumbs(path) {
@@ -169,7 +178,8 @@ function buildOrganization() {
     '@id': `${SITE_URL}/#brand`,
     name: BRAND,
     url: SITE_URL,
-    logo: OG_IMAGE,
+    logo: { '@type': 'ImageObject', url: LOGO_IMAGE },
+    image: LOGO_IMAGE,
     sameAs: SAME_AS,
     contactPoint: {
       '@type': 'ContactPoint',
@@ -193,7 +203,9 @@ export function headToHtml({ title, metas, links, jsonLd, metaRefresh }) {
     `<title>${textValue(title)}</title>`,
     ...(metaRefresh ? [`<meta http-equiv="refresh" content="${attrValue(metaRefresh)}" />`] : []),
     ...metas.map(metaTag),
-    ...links.map(({ rel, href }) => `<link rel="${attrValue(rel)}" href="${attrValue(href)}" />`),
+    ...links.map(
+      (link) => `<link ${Object.entries(link).map(([k, v]) => `${k}="${attrValue(v)}"`).join(' ')} />`,
+    ),
     ...jsonLd.map((schema) => `<script type="application/ld+json">${JSON.stringify(schema)}</script>`),
   ].join('\n    ')
 }

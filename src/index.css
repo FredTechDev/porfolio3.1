@@ -694,10 +694,28 @@ code {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-weight: 700;
   color: var(--text);
   font-size: 1.02rem;
   letter-spacing: -0.01em;
+}
+.brand-logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: none;
+  box-shadow: 0 0 0 1px var(--border);
+}
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .brand:hover {
   color: var(--accent-strong);

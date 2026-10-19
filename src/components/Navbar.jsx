@@ -9,7 +9,19 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar-inner">
         <Link className="brand" to="/" onClick={() => setOpen(false)}>
-          Fredrick Onyango <span className="brand-dim">· Software Engineer</span>
+          <picture className="brand-logo">
+            <source type="image/webp" srcSet="/fred1-logo.webp" />
+            <img
+              src="/fred1-logo.jpg"
+              width="256"
+              height="256"
+              alt="Fredrick Onyango — logo and profile picture"
+              loading="eager"
+            />
+          </picture>
+          <span className="brand-name">
+            Fredrick Onyango <span className="brand-dim">· Software Engineer</span>
+          </span>
         </Link>
 
         <nav aria-label="Primary">

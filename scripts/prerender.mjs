@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { allSeoPaths, sitemapPaths } from '../src/seo/routes.js'
 import { urlFor, headToHtml } from '../src/seo/head.js'
+import { buildRssFeed } from '../src/seo/feed.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = join(here, '..')
@@ -74,8 +75,9 @@ for (const path of [...allSeoPaths(), NOT_FOUND_SAMPLE]) {
 }
 
 await writeFile(join(dist, 'sitemap.xml'), buildSitemap())
+await writeFile(join(dist, 'feed.xml'), buildRssFeed())
 await rm(join(root, '.prerender'), { recursive: true, force: true })
 
 console.log(
-  `prerender: ${routes - 1} routes, 404.html and sitemap.xml (${sitemapPaths().length} URLs)`,
+  `prerender: ${routes - 1} routes, 404.html, sitemap.xml (${sitemapPaths().length} URLs) and feed.xml`,
 )
