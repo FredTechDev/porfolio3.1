@@ -15,7 +15,7 @@ function setMeta(attr, name, content) {
 // singletons that must be updated in place across navigation (canonical, the
 // RSS alternate). Matching preconnect on rel+href keeps all four, while the
 // singleton path avoids leaving a stale canonical behind.
-const REPEATABLE = new Set(['preconnect', 'preload', 'dns-prefetch', 'modulepreload'])
+const REPEATABLE = new Set(['preconnect', 'preload', 'dns-prefetch', 'modulepreload', 'me'])
 
 function setLink(link) {
   const base = `link[rel="${link.rel}"]`
@@ -41,6 +41,12 @@ export function usePageSeo(opts) {
     for (const { name, property, content } of head.metas) {
       setMeta(name ? 'name' : 'property', name || property, content)
     }
+    // Drop image preloads left over from a previous route (only the home page
+    // preloads its hero), so navigating away doesn't leave a stale fetch hint.
+    const keepPreloads = new Set(head.links.filter((l) => l.rel === 'preload').map((l) => l.href))
+    document.head
+      .querySelectorAll('link[rel="preload"][as="image"]')
+      .forEach((el) => !keepPreloads.has(el.getAttribute('href')) && el.remove())
     for (const link of head.links) setLink(link)
     document.head.querySelectorAll('meta[http-equiv="refresh"]').forEach((el) => el.remove())
     if (head.metaRefresh) {

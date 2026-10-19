@@ -81,6 +81,13 @@ const home = {
   path: '/',
   type: 'WebPage',
   ogImage: ogCard('home'),
+  // The hero photo is the LCP element; preloading it (matching the <img> srcset)
+  // starts the fetch during head parsing instead of after the body renders.
+  preloadImage: {
+    href: '/fred3-720w.jpg',
+    srcset: '/fred3-360w.webp 360w, /fred3-720w.webp 720w',
+    sizes: '360px',
+  },
   sitemapImage: {
     url: PORTRAIT,
     caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
@@ -148,6 +155,7 @@ const aiEngineering = {
     'How I build production AI: RAG pipelines, pgvector retrieval, LLM integration and provider fallback, plus the system design behind Kilele Archade and Apex.',
   path: '/ai-engineering',
   type: 'WebPage',
+  breadcrumb: 'AI & Engineering',
   ogImage: ogCard('ai-engineering'),
   extraSchema: {
     '@type': 'TechArticle',
@@ -314,6 +322,7 @@ function projectDetail(slug) {
     description: project.summary,
     path: `/projects/${project.slug}`,
     type: 'SoftwareApplication',
+    breadcrumb: project.name,
     ogImage: ogCard(`project-${project.slug}`),
     extraSchema: buildSoftwareApplicationSchema(project),
     jsonLd: [
@@ -340,6 +349,7 @@ function blogDetail(slug) {
     path: `/blog/${post.slug}`,
     type: 'Article',
     lastmod: post.date,
+    breadcrumb: post.title,
     ogImage: ogCard(`blog-${post.slug}`),
     // The page node stays a WebPage; buildBlogPostingSchema below is the
     // Article entity. Emitting both as articles described one URL twice.
@@ -360,6 +370,7 @@ function categoryPage(slug) {
     path: `/blog/${category.slug}`,
     type: 'CollectionPage',
     lastmod: inCategory[0]?.date,
+    breadcrumb: category.name,
     ogImage: ogCard(`blog-category-${category.slug}`),
     extraSchema: {
       '@type': 'CollectionPage',
@@ -396,6 +407,7 @@ function labDetail(slug) {
     path: `/lab/${exp.slug}`,
     type: 'WebPage',
     lastmod: exp.date,
+    breadcrumb: exp.name,
     ogImage: ogCard(`lab-${exp.slug}`),
     extraSchema: {
       '@type': 'TechArticle',

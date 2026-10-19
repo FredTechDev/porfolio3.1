@@ -3,7 +3,6 @@ import { PERSON_ID, personRef } from './schemas.js'
 
 export const BRAND = 'Fredrick Onyango'
 const OG_IMAGE = `${SITE_URL}/og-cover.png`
-const LOGO_IMAGE = `${SITE_URL}/fred1-logo.jpg`
 export const SAME_AS = [
   profile.github,
   profile.linkedin,
@@ -11,6 +10,12 @@ export const SAME_AS = [
   profile.devpost,
   `${SITE_URL}${profile.cvPath}`,
 ].filter(Boolean)
+
+// Identity profiles that accept a rel=me verification link (not the hosted CV).
+const ME_LINKS = [profile.github, profile.linkedin, profile.x, profile.devpost].filter(Boolean)
+
+// Human labels for path segments used as intermediate breadcrumbs.
+const CRUMB_NAMES = { blog: 'Blog', projects: 'Projects', lab: 'Lab' }
 
 export function urlFor(path) {
   return path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
@@ -59,6 +64,8 @@ export function buildHead(opts) {
     canonicalPath = path,
     metaRefresh,
     jsonLd,
+    breadcrumb,
+    preloadImage,
   } = opts
 
   const url = urlFor(canonicalPath)
@@ -107,15 +114,27 @@ export function buildHead(opts) {
     links: [
       { rel: 'canonical', href: url },
       { rel: 'alternate', type: 'application/rss+xml', title: `${BRAND} — Blog feed`, href: `${SITE_URL}/feed.xml` },
+      ...(preloadImage
+        ? [
+            {
+              rel: 'preload',
+              as: 'image',
+              href: preloadImage.href,
+              ...(preloadImage.srcset && { imagesrcset: preloadImage.srcset }),
+              ...(preloadImage.sizes && { imagesizes: preloadImage.sizes }),
+            },
+          ]
+        : []),
+      ...ME_LINKS.map((href) => ({ rel: 'me', href })),
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'preconnect', href: 'https://res.cloudinary.com' },
     ],
-    jsonLd: buildSchemas({ title, description, path, type, extraSchema, jsonLd }),
+    jsonLd: buildSchemas({ title, description, path, type, extraSchema, jsonLd, breadcrumb }),
   }
 }
 
-function buildSchemas({ title, description, path, type, extraSchema, jsonLd }) {
+function buildSchemas({ title, description, path, type, extraSchema, jsonLd, breadcrumb }) {
   const schemas = [
     buildWebSite(),
     {
@@ -129,7 +148,7 @@ function buildSchemas({ title, description, path, type, extraSchema, jsonLd }) {
       inLanguage: 'en',
       ...extraSchema,
     },
-    buildBreadcrumbs(path),
+    buildBreadcrumbs(path, breadcrumb),
     buildOrganization(),
   ]
 
@@ -153,21 +172,22 @@ function buildWebSite() {
   }
 }
 
-function buildBreadcrumbs(path) {
+const prettify = (seg) => seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+
+function buildBreadcrumbs(path, leafName) {
+  const segments = path.split('/').filter(Boolean)
   const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: urlFor('/') }]
   let currentPath = ''
-  path
-    .split('/')
-    .filter(Boolean)
-    .forEach((segment, i) => {
-      currentPath += `/${segment}`
-      items.push({
-        '@type': 'ListItem',
-        position: i + 2,
-        name: segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-        item: urlFor(currentPath),
-      })
+  segments.forEach((segment, i) => {
+    currentPath += `/${segment}`
+    const isLeaf = i === segments.length - 1
+    items.push({
+      '@type': 'ListItem',
+      position: i + 2,
+      name: (isLeaf && leafName) || CRUMB_NAMES[segment] || prettify(segment),
+      item: urlFor(currentPath),
     })
+  })
   return { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items }
 }
 
@@ -178,8 +198,6 @@ function buildOrganization() {
     '@id': `${SITE_URL}/#brand`,
     name: BRAND,
     url: SITE_URL,
-    logo: { '@type': 'ImageObject', url: LOGO_IMAGE },
-    image: LOGO_IMAGE,
     sameAs: SAME_AS,
     contactPoint: {
       '@type': 'ContactPoint',
