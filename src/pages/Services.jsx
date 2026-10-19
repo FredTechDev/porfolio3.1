@@ -71,12 +71,12 @@ export default function Services() {
             <picture>
               <source
                 type="image/webp"
-                srcSet="/fred1-360w.webp 360w, /fred1-720w.webp 720w"
+                srcSet="/fred3-360w.webp 360w, /fred3-720w.webp 720w"
                 sizes="360px"
               />
               <img
-                src="/fred1-360w.jpg"
-                srcSet="/fred1-360w.jpg 360w, /fred1-720w.jpg 720w"
+                src="/fred3-360w.jpg"
+                srcSet="/fred3-360w.jpg 360w, /fred3-720w.jpg 720w"
                 sizes="360px"
                 alt="Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
                 width="360"

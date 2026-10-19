@@ -21,10 +21,10 @@ import {
 // static assets so the deploy never has to rasterise anything.
 const ogCard = (name) => `${SITE_URL}/og/${name}.png`
 
-// fred1 is the site's profile picture: it is the Person.image entity and the
+// fred3 is the site's profile picture: it is the Person.image entity and the
 // home/about/services sitemap image, so search engines index it. 720w render.
-const PORTRAIT = `${SITE_URL}/fred1-720w.jpg`
-const LOGO = `${SITE_URL}/fred1-logo.jpg`
+// fred1 stays as the brand logo (see Organization.logo in head.js).
+const PORTRAIT = `${SITE_URL}/fred3-720w.jpg`
 
 // Periods read "2025 — Present". A bare year is valid ISO 8601; inventing a
 // month would put a precise-looking date in the graph that nobody has confirmed.

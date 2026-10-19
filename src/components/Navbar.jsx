@@ -15,7 +15,7 @@ export default function Navbar() {
               src="/fred1-logo.jpg"
               width="256"
               height="256"
-              alt="Fredrick Onyango — logo and profile picture"
+              alt="Fredrick Onyango — logo"
               loading="eager"
             />
           </picture>
