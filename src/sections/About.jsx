@@ -1,4 +1,4 @@
-import { profile, education, philosophy } from '../data/site.js'
+import { profile, education, philosophy, synbree } from '../data/site.js'
 import SectionHeading from '../components/SectionHeading.jsx'
 
 export default function About() {
@@ -12,7 +12,20 @@ export default function About() {
         <div className="about-grid">
           <div>
             <p>
-              I'm an enthusiastic IT student and software developer focused on building
+              I'm the founder of{' '}
+              <a href={synbree.url} rel="noopener noreferrer">
+                {synbree.name}
+              </a>
+              , a software engineering and digital innovation company building
+              thoughtful digital products, intelligent systems, and software
+              solutions that solve real problems.{' '}
+              <a href={synbree.url} rel="noopener noreferrer">
+                {synbree.workCta}
+              </a>
+              .
+            </p>
+            <p>
+              As an enthusiastic IT student and software developer, I focus on building
               practical technology solutions using modern software engineering,
               artificial intelligence, cloud computing, and data-driven systems.
             </p>
@@ -42,6 +55,15 @@ export default function About() {
           </div>
 
           <ul className="about-facts">
+            <li>
+              <strong>Founder of</strong>
+              <span>
+                <a href={synbree.url} rel="noopener noreferrer">
+                  {synbree.name}
+                </a>{' '}
+                — {synbree.shortDescription}
+              </span>
+            </li>
             <li>
               <strong>Education</strong>
               <span>

@@ -77,13 +77,13 @@ function card({ kicker, title, sub }) {
 }
 
 const cards = [
-  { file: 'home', kicker: 'Portfolio', title: profile.name, sub: 'Full-Stack · Backend · AI/ML' },
+  { file: 'home', kicker: 'Portfolio', title: profile.name, sub: 'Founder of Synbree · Full-Stack · AI/ML' },
   { file: 'about', kicker: 'About', title: 'Who I am and what I build', sub: 'Nairobi, Kenya' },
   { file: 'projects', kicker: 'Portfolio', title: 'Projects', sub: 'Case studies with architecture and results' },
   { file: 'blog', kicker: 'Writing', title: 'Technical Blog', sub: 'AI engineering, RAG, PostgreSQL, architecture' },
   { file: 'lab', kicker: 'Experiments', title: 'Lab', sub: 'AI, IoT and data work with source code' },
   { file: 'services', kicker: 'Hire', title: 'Engineering Services', sub: 'AI and RAG systems, full-stack products, APIs' },
-  { file: 'experience', kicker: 'Track record', title: 'Experience', sub: 'Cine Creatives · Apex · Kilele Archade' },
+  { file: 'experience', kicker: 'Track record', title: 'Experience', sub: 'Synbree · Cine Creatives · Apex · Kilele' },
   { file: 'ai-engineering', kicker: 'Deep dive', title: 'AI & Engineering', sub: 'RAG, pgvector, LLM integration, fallback' },
   { file: 'contact', kicker: 'Get in touch', title: 'Contact', sub: 'Nairobi-based · remote worldwide' },
   ...categories.map((c) => ({

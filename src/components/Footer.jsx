@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { profile } from '../data/site.js'
+import { profile, synbree } from '../data/site.js'
 
 const explore = [
   { label: 'Home', to: '/' },
@@ -21,6 +21,7 @@ const professional = [
 ]
 
 const products = [
+  { label: 'Synbree (Company)', href: synbree.url },
   { label: 'Kilele Archade', href: 'https://kilelearchade.co.ke' },
   { label: 'Kilele Archade — Case Study', to: '/projects/kilele-archade' },
   { label: 'Apex', to: '/projects/apex' },

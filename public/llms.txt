@@ -1,12 +1,18 @@
 # Fredrick Onyango — Portfolio
-> Full-Stack Developer, Backend Engineer & AI/ML Engineer based in Kenya. Building intelligent, scalable products including Kilele Archade (AI EdTech) and Apex (PropTech).
+> Founder of Synbree. Full-Stack Developer, Backend Engineer & AI/ML Engineer based in Kenya. Building intelligent, scalable products including Kilele Archade (AI EdTech) and Apex (PropTech).
 
 ## About
-Fredrick Onyango is a Kenya-based software engineer specializing in full-stack development, backend engineering, and AI/ML engineering. He builds production systems with React, TypeScript, Python, Java, PostgreSQL, and modern cloud infrastructure. His work spans EdTech (Kilele Archade), PropTech (Apex), HealthTech (MediFlow), and AI/ML experiments.
+Fredrick Onyango is a Kenya-based software engineer and founder of Synbree, a software engineering and digital innovation company. He specializes in full-stack development, backend engineering, and AI/ML engineering, and builds production systems with React, TypeScript, Python, Java, PostgreSQL, and modern cloud infrastructure. His work spans EdTech (Kilele Archade), PropTech (Apex), HealthTech (MediFlow), and AI/ML experiments.
 
 **Location:** Nairobi, Kenya
 **Available for:** Remote work globally, Kenya-based opportunities
 **Contact:** onyangofred1005@gmail.com | GitHub: @FredTechDev | LinkedIn: fredrickonyango
+
+## Company — Synbree
+- **Role:** Founder
+- **URL:** https://synbree.vercel.app
+- **Explore our work:** https://synbree.vercel.app
+- **Description:** Synbree is a software engineering and digital innovation company building thoughtful digital products, intelligent systems, and software solutions that solve real problems.
 
 ## Featured Products
 
@@ -113,6 +119,9 @@ Fredrick Onyango is a Kenya-based software engineer specializing in full-stack d
 
 ## Experience
 
+### Synbree — Founder
+Founded a software engineering and digital innovation company building thoughtful digital products, intelligent systems, and software solutions that solve real problems. Owns the technical direction: architecture, engineering standards and product design.
+
 ### Cine Creatives — Developer (2025 — Present)
 Full-stack development, backend services, third-party API integrations, deployments. Technologies: JavaScript/TypeScript, React, Node.js, PostgreSQL, cloud hosting.
 
@@ -140,6 +149,7 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 - **Lab:** https://fredrickonyango.vercel.app/lab
 - **Blog:** https://fredrickonyango.vercel.app/blog
 - **Contact:** https://fredrickonyango.vercel.app/contact
+- **Synbree (company):** https://synbree.vercel.app
 
 ## Services — Hire Fredrick Onyango
 - **URL:** https://fredrickonyango.vercel.app/services
@@ -149,6 +159,7 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 ## Structured Data Available
 - Person (Fredrick Onyango)
 - Organization (Fredrick Onyango)
+- Organization (Synbree, synbree.vercel.app — founder: Fredrick Onyango)
 - Organization (Kilele Archade, kilelearchade.co.ke — founder: Fredrick Onyango)
 - WebSite
 - WebPage (all pages)
@@ -167,4 +178,4 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 - ItemList (project collections, experience)
 
 ## Keywords for Search
-Fredrick Onyango, Full-Stack Developer Kenya, Backend Engineer Kenya, AI/ML Engineer Kenya, Software Engineer Nairobi, Kilele Archade, Apex, RAG Engineering, pgvector, AI EdTech Kenya, PropTech Kenya, Remote Software Engineer Africa, Hire AI Engineer Kenya
+Fredrick Onyango, Founder of Synbree, Synbree, Full-Stack Developer Kenya, Backend Engineer Kenya, AI/ML Engineer Kenya, Software Engineer Nairobi, Software Engineering Company Kenya, Digital Innovation Kenya, Kilele Archade, Apex, RAG Engineering, pgvector, AI EdTech Kenya, PropTech Kenya, Remote Software Engineer Africa, Hire AI Engineer Kenya

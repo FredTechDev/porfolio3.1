@@ -1,4 +1,4 @@
-import { profile, SITE_URL, education, certifications, experiences, services } from '../data/site.js'
+import { profile, SITE_URL, education, certifications, experiences, services, synbree } from '../data/site.js'
 import { projects, getProject } from '../data/projects.js'
 import { posts, getPost, categories, getCategory, postsInCategory } from '../data/blog.js'
 import { labExperiments, getLabExperiment } from '../data/lab.js'
@@ -9,11 +9,13 @@ import {
   buildSoftwareApplicationSchema,
   buildSoftwareSourceCodeSchema,
   buildKileleOrganizationSchema,
+  buildSynbreeOrganizationSchema,
   postFaqs,
   repoLanguage,
   PERSON_ID,
   KILELE_ORG_ID,
   KILELE_URL,
+  synbreeRef,
   personRef,
 } from './schemas.js'
 
@@ -30,11 +32,21 @@ const PORTRAIT = `${SITE_URL}/fred3-720w.jpg`
 // month would put a precise-looking date in the graph that nobody has confirmed.
 const yearOf = (period) => /^\s*(\d{4})\b/.exec(period ?? '')?.[1]
 
+// Roles that belong to a named company resolve to that company's entity, so the
+// occupation edges land inside the same graph as the Organization nodes.
+const orgFor = (name) => {
+  if (name === synbree.name) return synbreeRef
+  if (name === 'Kilele Archade') {
+    return { '@type': 'Organization', '@id': KILELE_ORG_ID, name, url: KILELE_URL }
+  }
+  return { '@type': 'Organization', name }
+}
+
 const occupations = experiences.map((exp) => ({
   '@type': 'EmploymentRole',
   roleName: exp.role,
   ...(yearOf(exp.period) && { startDate: yearOf(exp.period) }),
-  worksFor: { '@type': 'Organization', name: exp.org },
+  worksFor: orgFor(exp.org),
   description: exp.points.join(' '),
 }))
 
@@ -65,19 +77,15 @@ const personEntity = (extra = {}) => ({
   ],
   sameAs: SAME_AS,
   hasOccupation: occupations,
-  worksFor: {
-    '@type': 'Organization',
-    '@id': KILELE_ORG_ID,
-    name: 'Kilele Archade',
-    url: KILELE_URL,
-  },
+  founder: synbreeRef,
+  worksFor: synbreeRef,
   ...extra,
 })
 
 const home = {
-  title: `${profile.name} — Full-Stack Developer, Backend Engineer & AI/ML Engineer | Kenya`,
+  title: `${profile.name} — Founder of Synbree | Full-Stack, Backend & AI/ML Engineer | Kenya`,
   description:
-    'Fredrick Onyango — Full-Stack, Backend & AI/ML Engineer in Nairobi. I build AI-powered products end to end: Kilele Archade (EdTech) and Apex (PropTech).',
+    'Fredrick Onyango — Founder of Synbree, a software engineering and digital innovation company, and Full-Stack, Backend & AI/ML Engineer in Nairobi.',
   path: '/',
   type: 'WebPage',
   ogImage: ogCard('home'),
@@ -90,22 +98,22 @@ const home = {
   },
   sitemapImage: {
     url: PORTRAIT,
-    caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
+    caption: 'Fredrick Onyango — Founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
   },
   extraSchema: { '@type': 'ProfilePage', mainEntity: personEntity() },
-  jsonLd: [buildKileleOrganizationSchema()],
+  jsonLd: [buildSynbreeOrganizationSchema(), buildKileleOrganizationSchema()],
 }
 
 const about = {
-  title: 'About — Fredrick Onyango | Full-Stack, Backend & AI/ML Engineer from Kenya',
+  title: 'About — Fredrick Onyango | Founder of Synbree, Full-Stack & AI/ML Engineer from Kenya',
   description:
-    'Who I am and how I work: engineering philosophy, full stack (React, TypeScript, Python, Java, PostgreSQL, AI/ML) and the products I have shipped from Nairobi.',
+    'Who I am and how I work: founder of Synbree, engineering philosophy, the full stack I use (React, TypeScript, Python, PostgreSQL, AI/ML) and what I ship.',
   path: '/about',
   type: 'ProfilePage',
   ogImage: ogCard('about'),
   sitemapImage: {
     url: PORTRAIT,
-    caption: 'Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer from Nairobi, Kenya',
+    caption: 'Fredrick Onyango — Founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer from Nairobi, Kenya',
   },
   extraSchema: {
     '@type': 'ProfilePage',
@@ -125,9 +133,9 @@ const about = {
 }
 
 const experience = {
-  title: 'Experience — Fredrick Onyango | Cine Creatives, Apex & Kilele Archade',
+  title: 'Experience — Fredrick Onyango | Synbree, Cine Creatives, Apex & Kilele Archade',
   description:
-    'Developer at Cine Creatives, Founder of Apex (PropTech) and Builder of Kilele Archade (AI EdTech). Full-stack, backend and AI/ML engineering work since 2025.',
+    'Founder of Synbree — software engineering and digital innovation. Developer at Cine Creatives, founder of Apex, builder of Kilele Archade since 2025.',
   path: '/experience',
   type: 'WebPage',
   ogImage: ogCard('experience'),
@@ -231,7 +239,7 @@ const projectsPage = {
 const blogPage = {
   title: 'Blog — Fredrick Onyango | AI Engineering, System Architecture & Software Development',
   description:
-    'Technical writing on AI engineering, RAG pipelines, PostgreSQL and pgvector, system architecture and product engineering — from building real platforms in Kenya.',
+    'Technical writing on AI engineering, RAG pipelines, PostgreSQL and pgvector, system architecture and product engineering — from real platforms in Kenya.',
   path: '/blog',
   type: 'Blog',
   ogImage: ogCard('blog'),
@@ -253,9 +261,9 @@ const blogPage = {
 }
 
 const servicesPage = {
-  title: 'Services — Hire Fredrick Onyango | Full-Stack, Backend & AI/ML Developer (Kenya / Remote)',
+  title: 'Services — Hire Fredrick Onyango | Founder of Synbree | Full-Stack & AI/ML Developer',
   description:
-    'Hire Fredrick Onyango for end-to-end delivery: AI and RAG systems, React products, Node.js and Spring Boot APIs, PostgreSQL design, cloud deployment. Remote worldwide.',
+    'Hire Fredrick Onyango, founder of Synbree, for end-to-end delivery: AI and RAG systems, React products, Node.js and Spring Boot APIs, cloud deployment.',
   path: '/services',
   type: 'WebPage',
   ogImage: ogCard('services'),
@@ -440,6 +448,7 @@ export const redirectRoutes = [
   { path: '/email', to: `mailto:${profile.email}`, label: 'email' },
   { path: '/cv', to: profile.cvPath, label: 'CV (PDF)' },
   { path: '/kilelearchade', to: 'https://kilelearchade.co.ke', label: 'Kilele Archade' },
+  { path: '/synbree', to: synbree.url, label: 'Synbree' },
   { path: '/apex', to: '/projects/apex', label: 'Apex', internal: true },
 ]
 

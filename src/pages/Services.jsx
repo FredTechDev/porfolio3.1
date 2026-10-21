@@ -29,9 +29,10 @@ export default function Services() {
     <>
       <div className="page-head container">
         <p className="section-kicker">Services</p>
-        <h1>Hire Fredrick Onyango — full-stack, backend &amp; AI engineering</h1>
+        <h1>Hire Fredrick Onyango — founder of Synbree, full-stack, backend &amp; AI engineering</h1>
         <p className="muted" style={{ maxWidth: 680 }}>
-          Kenya-based engineer building intelligent, scalable products: Kilele Archade, a live AI
+          Kenya-based engineer and founder of Synbree, a software engineering and digital
+          innovation company. I build intelligent, scalable products: Kilele Archade, a live AI
           learning platform at kilelearchade.co.ke, and Apex, a PropTech platform. Available for
           product builds, freelance contracts and remote roles worldwide.
         </p>
@@ -78,7 +79,7 @@ export default function Services() {
                 src="/fred3-360w.jpg"
                 srcSet="/fred3-360w.jpg 360w, /fred3-720w.jpg 720w"
                 sizes="360px"
-                alt="Fredrick Onyango — Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
+                alt="Fredrick Onyango — founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
                 width="360"
                 height="480"
                 loading="lazy"

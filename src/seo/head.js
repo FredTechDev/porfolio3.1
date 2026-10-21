@@ -166,7 +166,7 @@ function buildWebSite() {
     url: SITE_URL,
     name: `${BRAND} — Portfolio`,
     description:
-      'Portfolio and technical writing by Fredrick Onyango — full-stack, backend and AI/ML engineering from Nairobi, Kenya.',
+      'Portfolio and technical writing by Fredrick Onyango — founder of Synbree, with full-stack, backend and AI/ML engineering from Nairobi, Kenya.',
     inLanguage: 'en',
     publisher: { '@type': 'Organization', '@id': `${SITE_URL}/#brand` },
   }

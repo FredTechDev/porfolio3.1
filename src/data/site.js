@@ -8,11 +8,11 @@ export const SITE_URL = "https://fredrickonyango.vercel.app";
 export const profile = {
   name: "Fredrick Onyango",
   nicknames: ["The Tech Magician", "Amirion Prince"],
-  role: "Full-Stack Developer | Backend Engineer | AI/ML Engineer",
+  role: "Founder of Synbree | Full-Stack Developer | Backend Engineer | AI/ML Engineer",
   shortRole: "Software Engineer | AI Builder | Product Innovator",
   location: "Kenya",
   tagline:
-    "I build intelligent, scalable software solutions that transform real-world problems into practical digital products.",
+    "Founder of Synbree, where I build intelligent, scalable software solutions that transform real-world problems into practical digital products.",
   heroSupporting:
     "From system architecture and backend engineering to AI integration, databases, cloud infrastructure, and modern frontend development, I build technology with a focus on usability, scalability, and real-world impact.",
   email: "onyangofred1005@gmail.com",
@@ -22,6 +22,17 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/fredrickonyango", // TODO: verify slug
   x: "https://x.com/FredTechDev", // TODO: verify handle
   devpost: "https://devpost.com/onyangofred1005", // TODO: verify profile URL slug
+};
+
+// Fredrick's company. Single source of truth for the founder credit: the
+// Person/Organization schema, the on-page copy and llms.txt all read from here.
+export const synbree = {
+  name: "Synbree",
+  url: "https://synbree.vercel.app",
+  shortDescription: "Software engineering and digital innovation company",
+  description:
+    "Synbree is a software engineering and digital innovation company building thoughtful digital products, intelligent systems, and software solutions that solve real problems.",
+  workCta: "Explore our work",
 };
 
 export const availability = {
@@ -131,6 +142,19 @@ export const services = [
 
 export const experiences = [
   {
+    role: "Founder",
+    org: "Synbree",
+    period: "", // TODO: confirm the founding year, e.g. "2026 — Present"
+    type: "Company",
+    href: synbree.url,
+    points: [
+      "Founded Synbree — a software engineering and digital innovation company.",
+      "Building thoughtful digital products, intelligent systems and software solutions that solve real problems.",
+      "Own the technical direction: architecture, engineering standards and product design across what we ship.",
+      "Technologies: JavaScript/TypeScript, React, Node.js, Spring Boot, PostgreSQL, AI/ML, cloud hosting.",
+    ],
+  },
+  {
     role: "Developer",
     org: "Cine Creatives",
     period: "2025 — Present", // TODO: confirm dates
@@ -170,6 +194,7 @@ export const experiences = [
 
 export const achievements = [
   // TODO: replace with genuine achievements + proof links before launch.
+  { title: "Founded Synbree", detail: "Software engineering and digital innovation company — thoughtful products and intelligent systems", kind: "Company" },
   { title: "Launched Kilele Archade", detail: "Public AI learning platform live at kilelearchade.co.ke", kind: "Product" },
   { title: "Founded Apex", detail: "Property-management product from concept to working software", kind: "Product" },
   { title: "Hackathon participation", detail: "Built and presented prototypes at hackathons", kind: "Hackathon" },

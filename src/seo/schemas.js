@@ -1,4 +1,4 @@
-import { SITE_URL, profile } from '../data/site.js'
+import { SITE_URL, profile, synbree } from '../data/site.js'
 
 const CODE_LANGUAGES = ['TypeScript', 'JavaScript', 'Python', 'Java', 'Go', 'C++', 'C']
 const publicLive = (live) => live && !live.includes('example.com')
@@ -8,6 +8,8 @@ const publicLive = (live) => live && !live.includes('example.com')
 export const PERSON_ID = `${SITE_URL}/#person`
 export const KILELE_URL = 'https://kilelearchade.co.ke'
 export const KILELE_ORG_ID = `${KILELE_URL}#organization`
+const SYNBREE_URL = synbree.url
+const SYNBREE_ORG_ID = `${SYNBREE_URL}#organization`
 
 export const personRef = {
   '@type': 'Person',
@@ -30,6 +32,28 @@ export function buildKileleOrganizationSchema() {
     url: KILELE_URL,
     description:
       'AI-powered CBC learning platform for Kenyan students, teachers and parents — document-based learning, a grounded AI tutor, quizzes and role dashboards. Built by Fredrick Onyango.',
+    founder: personRef,
+    employee: personRef,
+  }
+}
+
+// The company Fredrick founded. A distinct entity from the portfolio itself, so
+// the Person.founder edge resolves to Synbree rather than to this site.
+export const synbreeRef = {
+  '@type': 'Organization',
+  '@id': SYNBREE_ORG_ID,
+  name: synbree.name,
+  url: SYNBREE_URL,
+}
+
+export function buildSynbreeOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': SYNBREE_ORG_ID,
+    name: synbree.name,
+    url: SYNBREE_URL,
+    description: synbree.description,
     founder: personRef,
     employee: personRef,
   }
@@ -150,7 +174,7 @@ export function postFaqs(post) {
     { question: `What is ${post.title} about?`, answer: post.excerpt },
     {
       question: 'Who is the author?',
-      answer: `${post.author} is a Full-Stack Developer, Backend Engineer & AI/ML Engineer based in Kenya.`,
+      answer: `${post.author} is the founder of Synbree and a Full-Stack Developer, Backend Engineer & AI/ML Engineer based in Kenya.`,
     },
     {
       question: 'What technologies are covered?',

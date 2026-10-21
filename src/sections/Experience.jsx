@@ -9,7 +9,15 @@ export default function Experience() {
             <article className="card card--hover timeline-item" key={`${e.role}-${e.org}`}>
               <h3>{e.role}</h3>
               <p className="timeline-meta">
-                <span className="timeline-org">{e.org}</span>
+                <span className="timeline-org">
+                  {e.href ? (
+                    <a href={e.href} rel="noopener noreferrer">
+                      {e.org}
+                    </a>
+                  ) : (
+                    e.org
+                  )}
+                </span>
                 <span>{e.period}</span>
                 <span>{e.type}</span>
               </p>

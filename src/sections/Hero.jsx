@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Availability from '../components/Availability.jsx'
-import { profile } from '../data/site.js'
+import { profile, synbree } from '../data/site.js'
 
 export default function Hero() {
   return (
@@ -36,6 +36,10 @@ export default function Hero() {
           </div>
 
           <p className="hero-links">
+            <a href={synbree.url} rel="noopener noreferrer">
+              {synbree.workCta} at {synbree.name}
+            </a>{' '}
+            ·{' '}
             <a href={profile.github} rel="noopener noreferrer">
               GitHub
             </a>{' '}
@@ -60,7 +64,7 @@ export default function Hero() {
               src="/fred3-360w.jpg"
               srcSet="/fred3-360w.jpg 360w, /fred3-720w.jpg 720w"
               sizes="360px"
-              alt="Fredrick Onyango, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
+              alt="Fredrick Onyango, founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya"
               width="360"
               height="480"
               fetchPriority="high"
