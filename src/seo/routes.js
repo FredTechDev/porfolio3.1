@@ -117,7 +117,7 @@ const home = {
 const about = {
   title: 'About — Fredrick Onyango | Founder of Synbree | Full-Stack & AI/ML Engineer | MMUST Kenya',
   description:
-    'Founder of Synbree — Full-Stack & AI/ML Engineer, Information Technology degree at Masinde Muliro University of Science and Technology (MMUST), Kenya.',
+    'Founder of Synbree — Full-Stack & AI/ML Engineer, trained at Masinde Muliro University of Science and Technology (MMUST), Kenya.',
   path: '/about',
   type: 'ProfilePage',
   ogImage: ogCard('about'),

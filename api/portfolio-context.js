@@ -16,7 +16,7 @@ export function portfolioBrief() {
 
   lines.push('Education:')
   lines.push(
-    `- ${education.qualification} — ${education.school}${education.period ? ` (${education.period})` : ` (${education.status})`}`,
+    `- ${education.school} (${education.shortSchool}) — ${education.qualification}${education.period ? ` (${education.period})` : ` (${education.status})`}`,
   )
   lines.push('')
 

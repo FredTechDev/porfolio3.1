@@ -5,7 +5,7 @@
 Fredrick Onyango is a Kenya-based software engineer and founder of Synbree, a software engineering and digital innovation company. He specializes in full-stack development, backend engineering, and AI/ML engineering, and builds production systems with React, TypeScript, Python, Java, PostgreSQL, and modern cloud infrastructure. His work spans EdTech (Kilele Archade), PropTech (Apex), HealthTech (MediFlow), and AI/ML experiments.
 
 **Location:** Nairobi, Kenya
-**Education:** Degree in Information Technology — Masinde Muliro University of Science and Technology (MMUST), Kakamega, Kenya — https://mmust.ac.ke
+**Education:** Masinde Muliro University of Science and Technology (MMUST), Kakamega, Kenya — https://mmust.ac.ke
 **Available for:** Remote work globally, Kenya-based opportunities
 **Contact:** onyangofred1005@gmail.com | GitHub: @FredTechDev | LinkedIn: fredrickonyango
 

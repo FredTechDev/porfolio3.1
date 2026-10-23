@@ -25,14 +25,9 @@ export default function About() {
               .
             </p>
             <p>
-              As a founder and software engineer pursuing an Information Technology
-              degree at{' '}
-              <a href={education.schoolUrl} rel="noopener noreferrer">
-                {education.school}
-              </a>{' '}
-              ({education.shortSchool}), I focus on building practical technology
-              solutions using modern software engineering, artificial intelligence,
-              cloud computing, and data-driven systems.
+              I build practical technology solutions with modern software engineering,
+              artificial intelligence, cloud computing, and data-driven systems — and
+              I own them from architecture through to the deployed product.
             </p>
             <p className="muted">
               My interests span full-stack development, backend engineering, AI/ML,
@@ -72,7 +67,10 @@ export default function About() {
             <li>
               <strong>Education</strong>
               <span>
-                {education.qualification} — {education.school} ({education.status})
+                <a href={education.schoolUrl} rel="noopener noreferrer">
+                  {education.school}
+                </a>{' '}
+                ({education.shortSchool}) · {education.qualification}, {education.status}
               </span>
             </li>
             <li>
