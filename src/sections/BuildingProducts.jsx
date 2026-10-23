@@ -7,7 +7,7 @@ export default function BuildingProducts() {
         <div className="card" style={{ padding: 'clamp(1.75rem, 5vw, 3rem)' }}>
           <p className="section-kicker">Building Products</p>
           <h2 id="products-title">
-            I don't only build assignments. I build products.
+            I don't build demos. I build products.
           </h2>
           <p className="muted" style={{ maxWidth: 680 }}>
             Two of my projects started as conversations about problems people actually

@@ -52,6 +52,8 @@ export const socials = [
 export const education = {
   school: "Masinde Muliro University of Science and Technology",
   shortSchool: "MMUST",
+  schoolUrl: "https://mmust.ac.ke",
+  schoolLocation: "Kakamega, Kenya",
   qualification: "Degree in Information Technology",
   status: "Currently studying",
   period: "", // TODO: confirm years, e.g. "2023 — 2027"

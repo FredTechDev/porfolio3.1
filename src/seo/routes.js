@@ -50,6 +50,15 @@ const occupations = experiences.map((exp) => ({
   description: exp.points.join(' '),
 }))
 
+// MMUST as a resolvable entity: the named institution (with its official site)
+// is what search engines join to the Person node via alumniOf.
+const universityEntity = {
+  '@type': 'EducationalOrganization',
+  name: education.school,
+  alternateName: education.shortSchool,
+  url: education.schoolUrl,
+}
+
 const personEntity = (extra = {}) => ({
   '@type': 'Person',
   '@id': PERSON_ID,
@@ -77,6 +86,7 @@ const personEntity = (extra = {}) => ({
   ],
   sameAs: SAME_AS,
   hasOccupation: occupations,
+  alumniOf: universityEntity,
   founder: synbreeRef,
   worksFor: synbreeRef,
   ...extra,
@@ -105,9 +115,9 @@ const home = {
 }
 
 const about = {
-  title: 'About — Fredrick Onyango | Founder of Synbree, Full-Stack & AI/ML Engineer from Kenya',
+  title: 'About — Fredrick Onyango | Founder of Synbree | Full-Stack & AI/ML Engineer | MMUST Kenya',
   description:
-    'Who I am and how I work: founder of Synbree, engineering philosophy, the full stack I use (React, TypeScript, Python, PostgreSQL, AI/ML) and what I ship.',
+    'Founder of Synbree — Full-Stack & AI/ML Engineer, Information Technology degree at Masinde Muliro University of Science and Technology (MMUST), Kenya.',
   path: '/about',
   type: 'ProfilePage',
   ogImage: ogCard('about'),
@@ -118,7 +128,6 @@ const about = {
   extraSchema: {
     '@type': 'ProfilePage',
     mainEntity: personEntity({
-      alumniOf: { '@type': 'EducationalOrganization', name: education.school },
       ...(certifications.length > 0 && {
         hasCredential: certifications.map((c) => ({
           '@type': 'EducationalOccupationalCredential',

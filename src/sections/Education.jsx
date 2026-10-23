@@ -5,7 +5,7 @@ export default function Education() {
   return (
     <section className="section section--alt" id="education" aria-labelledby="edu-title">
       <div className="container">
-        <SectionHeading kicker="Education" title="What I studied, and what I have certified in">
+        <SectionHeading kicker="Education" title="Where I trained as an engineer">
           Formal study behind the engineering, plus any credential I can link to.
         </SectionHeading>
 
@@ -15,11 +15,18 @@ export default function Education() {
             <span className="status-badge">{education.status}</span>
           </div>
           <p className="edu-school">
-            {education.school}
+            {education.schoolUrl ? (
+              <a href={education.schoolUrl} rel="noopener noreferrer">
+                {education.school}
+              </a>
+            ) : (
+              education.school
+            )}
             {education.shortSchool && education.shortSchool !== education.school ? (
               <span className="edu-short"> · {education.shortSchool}</span>
             ) : null}
           </p>
+          {education.schoolLocation && <p className="muted edu-period">{education.schoolLocation}</p>}
           {education.period && <p className="muted edu-period">{education.period}</p>}
           {education.coursework.length > 0 && (
             <>

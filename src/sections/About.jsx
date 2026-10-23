@@ -25,9 +25,14 @@ export default function About() {
               .
             </p>
             <p>
-              As an enthusiastic IT student and software developer, I focus on building
-              practical technology solutions using modern software engineering,
-              artificial intelligence, cloud computing, and data-driven systems.
+              As a founder and software engineer pursuing an Information Technology
+              degree at{' '}
+              <a href={education.schoolUrl} rel="noopener noreferrer">
+                {education.school}
+              </a>{' '}
+              ({education.shortSchool}), I focus on building practical technology
+              solutions using modern software engineering, artificial intelligence,
+              cloud computing, and data-driven systems.
             </p>
             <p className="muted">
               My interests span full-stack development, backend engineering, AI/ML,
@@ -89,7 +94,7 @@ export default function About() {
             <li>
               <strong>Entrepreneurial drive</strong>
               <span>
-                I don't only build assignments — I build products designed around real
+                I don't ship throwaway code — I build products designed around real
                 users and real problems.
               </span>
             </li>
