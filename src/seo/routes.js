@@ -108,6 +108,7 @@ const home = {
   },
   sitemapImage: {
     url: PORTRAIT,
+    title: 'Fredrick Onyango — Founder of Synbree, Full-Stack, Backend and AI/ML Engineer',
     caption: 'Fredrick Onyango — Founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
   },
   extraSchema: { '@type': 'ProfilePage', mainEntity: personEntity() },
@@ -123,6 +124,7 @@ const about = {
   ogImage: ogCard('about'),
   sitemapImage: {
     url: PORTRAIT,
+    title: 'Fredrick Onyango — Founder of Synbree, trained at MMUST',
     caption: 'Fredrick Onyango — Founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer from Nairobi, Kenya',
   },
   extraSchema: {
@@ -148,6 +150,12 @@ const experience = {
   path: '/experience',
   type: 'WebPage',
   ogImage: ogCard('experience'),
+  sitemapImage: {
+    url: ogCard('experience'),
+    title: 'Experience — Fredrick Onyango',
+    caption:
+      'Engineering roles at Synbree, Cine Creatives, Apex and Kilele Archade since 2025',
+  },
   extraSchema: {
     '@type': 'ItemList',
     name: 'Professional Experience',
@@ -174,6 +182,12 @@ const aiEngineering = {
   type: 'WebPage',
   breadcrumb: 'AI & Engineering',
   ogImage: ogCard('ai-engineering'),
+  sitemapImage: {
+    url: ogCard('ai-engineering'),
+    title: 'AI & Engineering — Fredrick Onyango',
+    caption:
+      'Production AI work: RAG pipelines, pgvector retrieval, LLM integration with provider fallback and system architecture',
+  },
   extraSchema: {
     '@type': 'TechArticle',
     headline: 'AI & Engineering — System Architecture & RAG Pipelines',
@@ -196,6 +210,12 @@ const lab = {
   path: '/lab',
   type: 'CollectionPage',
   ogImage: ogCard('lab'),
+  sitemapImage: {
+    url: ogCard('lab'),
+    title: 'Lab — experiments by Fredrick Onyango',
+    caption:
+      'Hands-on AI, IoT and data engineering experiments with public source code: ESP32 weather station, RAG benchmarks and provider fallback',
+  },
   extraSchema: {
     '@type': 'ItemList',
     name: 'Engineering Lab Experiments',
@@ -226,6 +246,12 @@ const projectsPage = {
   path: '/projects',
   type: 'CollectionPage',
   ogImage: ogCard('projects'),
+  sitemapImage: {
+    url: ogCard('projects'),
+    title: 'Projects — case studies by Fredrick Onyango',
+    caption:
+      'Kilele Archade, Apex and MediFlow — full-stack, AI/ML and backend case studies with architecture and results',
+  },
   extraSchema: {
     '@type': 'ItemList',
     name: 'Software Projects Portfolio',
@@ -252,6 +278,12 @@ const blogPage = {
   path: '/blog',
   type: 'Blog',
   ogImage: ogCard('blog'),
+  sitemapImage: {
+    url: ogCard('blog'),
+    title: 'Blog — writing by Fredrick Onyango',
+    caption:
+      'Technical articles on AI engineering, RAG pipelines, PostgreSQL and pgvector, system architecture and product engineering',
+  },
   lastmod: posts[0]?.date,
   extraSchema: {
     '@type': 'Blog',
@@ -278,6 +310,7 @@ const servicesPage = {
   ogImage: ogCard('services'),
   sitemapImage: {
     url: PORTRAIT,
+    title: 'Fredrick Onyango — available for full-stack, backend and AI/ML work',
     caption:
       'Fredrick Onyango — Full-Stack, Backend and AI/ML Developer available for hire in Kenya and remotely',
   },
@@ -311,6 +344,12 @@ const contact = {
   path: '/contact',
   type: 'ContactPage',
   ogImage: ogCard('contact'),
+  sitemapImage: {
+    url: ogCard('contact'),
+    title: 'Contact Fredrick Onyango',
+    caption:
+      'Hire a full-stack, backend and AI/ML engineer — Nairobi-based, remote worldwide',
+  },
   extraSchema: {
     '@type': 'ContactPage',
     name: 'Contact Fredrick Onyango',
@@ -531,22 +570,38 @@ export function sitemapPaths() {
       .filter((p) => p.featured)
       .map((p) => ({
         path: `/projects/${p.slug}`,
-        image: { url: ogCard(`project-${p.slug}`), caption: `${p.name} — case study by ${profile.name}` },
+        image: {
+          url: ogCard(`project-${p.slug}`),
+          title: `${p.name} — case study`,
+          caption: `${p.name} — case study by ${profile.name}`,
+        },
       })),
     ...labExperiments.map((x) => ({
       path: `/lab/${x.slug}`,
       lastmod: x.date,
-      image: { url: ogCard(`lab-${x.slug}`), caption: `${x.name} — lab experiment by ${profile.name}` },
+      image: {
+        url: ogCard(`lab-${x.slug}`),
+        title: `${x.name} — lab experiment`,
+        caption: `${x.name} — lab experiment by ${profile.name}`,
+      },
     })),
     ...posts.map((p) => ({
       path: `/blog/${p.slug}`,
       lastmod: p.date,
-      image: { url: ogCard(`blog-${p.slug}`), caption: `${p.title} — article by ${profile.name}` },
+      image: {
+        url: ogCard(`blog-${p.slug}`),
+        title: p.title,
+        caption: `${p.title} — article by ${profile.name}`,
+      },
     })),
     ...categories.map((c) => ({
       path: `/blog/${c.slug}`,
       lastmod: postsInCategory(c.slug)[0]?.date,
-      image: { url: ogCard(`blog-category-${c.slug}`), caption: `${c.name} writing by ${profile.name}` },
+      image: {
+        url: ogCard(`blog-category-${c.slug}`),
+        title: `${c.name} — writing by Fredrick Onyango`,
+        caption: `${c.name} writing by ${profile.name}`,
+      },
     })),
   ]
 }

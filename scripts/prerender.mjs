@@ -34,6 +34,7 @@ function buildSitemap() {
       if (!image) return `    <url>${inner}</url>`
       const img =
         `<image:image><image:loc>${esc(image.url)}</image:loc>` +
+        `<image:title>${esc(image.title)}</image:title>` +
         `<image:caption>${esc(image.caption)}</image:caption></image:image>`
       return `    <url>${inner}${img}</url>`
     })
