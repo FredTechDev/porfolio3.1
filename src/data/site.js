@@ -19,7 +19,9 @@ export const profile = {
   whatsapp: "https://wa.me/254729534077",
   cvPath: "/Fredrick-Onyango-CV.pdf",
   github: "https://github.com/FredTechDev", // TODO: verify username
-  linkedin: "https://www.linkedin.com/in/fredrickonyango", // TODO: verify slug
+  linkedin: "https://ke.linkedin.com/in/fredrick-onyango-424447372",
+  facebook: "https://www.facebook.com/profile.php?id=61590518607345",
+  instagram: "https://www.instagram.com/amirion_princrfrd/",
   x: "https://x.com/FredTechDev", // TODO: verify handle
   devpost: "https://devpost.com/onyangofred1005", // TODO: verify profile URL slug
 };
@@ -46,6 +48,8 @@ export const availability = {
 export const socials = [
   { label: "GitHub", href: profile.github },
   { label: "LinkedIn", href: profile.linkedin },
+  { label: "Instagram", href: profile.instagram },
+  { label: "Facebook", href: profile.facebook },
   { label: "Email", href: `mailto:${profile.email}` },
 ];
 

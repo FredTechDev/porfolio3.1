@@ -16,6 +16,8 @@ const explore = [
 const professional = [
   { label: 'GitHub', href: profile.github },
   { label: 'LinkedIn', href: profile.linkedin },
+  { label: 'Instagram', href: profile.instagram },
+  { label: 'Facebook', href: profile.facebook },
   { label: 'Email', href: `mailto:${profile.email}` },
   { label: 'CV', href: profile.cvPath },
 ]

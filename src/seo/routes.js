@@ -361,7 +361,7 @@ const contact = {
       alternateName: profile.nicknames,
       email: `mailto:${profile.email}`,
       url: SITE_URL,
-      sameAs: [profile.github, profile.linkedin],
+      sameAs: [profile.github, profile.linkedin, profile.instagram, profile.facebook],
       address: { '@type': 'PostalAddress', addressCountry: 'KE', addressRegion: 'Nairobi' },
       availableLanguage: 'English',
       jobTitle: profile.role,
@@ -493,6 +493,8 @@ function labDetail(slug) {
 export const redirectRoutes = [
   { path: '/github', to: profile.github, label: 'GitHub' },
   { path: '/linkedin', to: profile.linkedin, label: 'LinkedIn' },
+  { path: '/instagram', to: profile.instagram, label: 'Instagram' },
+  { path: '/facebook', to: profile.facebook, label: 'Facebook' },
   { path: '/email', to: `mailto:${profile.email}`, label: 'email' },
   { path: '/cv', to: profile.cvPath, label: 'CV (PDF)' },
   { path: '/kilelearchade', to: 'https://kilelearchade.co.ke', label: 'Kilele Archade' },

@@ -62,11 +62,14 @@ export default function Contact() {
     }
   }
 
+  const short = (url) => url.replace(/^https?:\/\/(www\.)?/, '')
   const channels = [
     { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
     { label: 'WhatsApp', value: 'Chat on WhatsApp', href: profile.whatsapp },
-    { label: 'LinkedIn', value: profile.linkedin.replace('https://', ''), href: profile.linkedin },
-    { label: 'GitHub', value: profile.github.replace('https://', ''), href: profile.github },
+    { label: 'LinkedIn', value: short(profile.linkedin), href: profile.linkedin },
+    { label: 'GitHub', value: short(profile.github), href: profile.github },
+    { label: 'Instagram', value: short(profile.instagram), href: profile.instagram },
+    { label: 'Facebook', value: short(profile.facebook), href: profile.facebook },
   ]
 
   return (

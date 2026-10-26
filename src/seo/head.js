@@ -6,13 +6,22 @@ const OG_IMAGE = `${SITE_URL}/og-cover.png`
 export const SAME_AS = [
   profile.github,
   profile.linkedin,
+  profile.facebook,
+  profile.instagram,
   profile.x,
   profile.devpost,
   `${SITE_URL}${profile.cvPath}`,
 ].filter(Boolean)
 
 // Identity profiles that accept a rel=me verification link (not the hosted CV).
-const ME_LINKS = [profile.github, profile.linkedin, profile.x, profile.devpost].filter(Boolean)
+const ME_LINKS = [
+  profile.github,
+  profile.linkedin,
+  profile.facebook,
+  profile.instagram,
+  profile.x,
+  profile.devpost,
+].filter(Boolean)
 
 // Human labels for path segments used as intermediate breadcrumbs.
 const CRUMB_NAMES = { blog: 'Blog', projects: 'Projects', lab: 'Lab' }

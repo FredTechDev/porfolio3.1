@@ -41,7 +41,8 @@ public/                 favicon, robots.txt, llms.txt, og-cover.png, CV PDF
 and `<!--seo-head:end-->`; the prerender build replaces that block per route.
 
 Routes: `/ · /about · /experience · /contact · /projects · /projects/:slug ·
-/blog · /blog/:slug · /github · /linkedin · /cv · /kilelearchade · /apex`
+/blog · /blog/:slug · /github · /linkedin · /instagram · /facebook · /cv ·
+/kilelearchade · /apex`
 
 ## Before launch — replace every TODO
 
