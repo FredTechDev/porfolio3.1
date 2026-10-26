@@ -1,5 +1,13 @@
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
+import {
+  FaEnvelope,
+  FaFacebookF,
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaWhatsapp,
+} from 'react-icons/fa6'
 import { profile } from '../data/site.js'
 
 const EMAILJS = {
@@ -62,14 +70,13 @@ export default function Contact() {
     }
   }
 
-  const short = (url) => url.replace(/^https?:\/\/(www\.)?/, '')
   const channels = [
-    { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-    { label: 'WhatsApp', value: 'Chat on WhatsApp', href: profile.whatsapp },
-    { label: 'LinkedIn', value: short(profile.linkedin), href: profile.linkedin },
-    { label: 'GitHub', value: short(profile.github), href: profile.github },
-    { label: 'Instagram', value: short(profile.instagram), href: profile.instagram },
-    { label: 'Facebook', value: short(profile.facebook), href: profile.facebook },
+    { label: 'Email', href: `mailto:${profile.email}`, Icon: FaEnvelope },
+    { label: 'WhatsApp', href: profile.whatsapp, Icon: FaWhatsapp },
+    { label: 'LinkedIn', href: profile.linkedin, Icon: FaLinkedinIn },
+    { label: 'GitHub', href: profile.github, Icon: FaGithub },
+    { label: 'Instagram', href: profile.instagram, Icon: FaInstagram },
+    { label: 'Facebook', href: profile.facebook, Icon: FaFacebookF },
   ]
 
   return (
@@ -131,12 +138,11 @@ export default function Contact() {
             )}
           </form>
 
-          <ul className="contact-channels">
+          <ul className="contact-channels" aria-label="Contact and profile links">
             {channels.map((c) => (
               <li key={c.label}>
-                <a href={c.href}>
-                  {c.label}
-                  <span>{c.value}</span>
+                <a href={c.href} aria-label={c.label} title={c.label} rel="noopener noreferrer">
+                  <c.Icon aria-hidden="true" />
                 </a>
               </li>
             ))}

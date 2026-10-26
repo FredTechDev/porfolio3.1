@@ -1381,31 +1381,28 @@ code {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 0.85rem;
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 .contact-channels a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 1rem 1.2rem;
-  color: var(--text);
-  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 .contact-channels a:hover {
   border-color: var(--accent);
+  background: var(--accent-soft);
   color: var(--accent-strong);
-}
-.contact-channels span {
-  font-weight: 400;
-  color: var(--text-faint);
-  font-size: 0.85rem;
-  overflow-wrap: anywhere;
-  text-align: right;
 }
 
 /* Footer ------------------------------------------------------------------------- */
