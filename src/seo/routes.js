@@ -5,6 +5,7 @@ import { labExperiments, getLabExperiment } from '../data/lab.js'
 import { SAME_AS } from './head.js'
 import {
   buildBlogPostingSchema,
+  buildCvDocumentSchema,
   buildProductSchema,
   buildSoftwareApplicationSchema,
   buildSoftwareSourceCodeSchema,
@@ -112,7 +113,7 @@ const home = {
     caption: 'Fredrick Onyango — Founder of Synbree, Full-Stack Developer, Backend Engineer and AI/ML Engineer based in Nairobi, Kenya',
   },
   extraSchema: { '@type': 'ProfilePage', mainEntity: personEntity() },
-  jsonLd: [buildSynbreeOrganizationSchema(), buildKileleOrganizationSchema()],
+  jsonLd: [buildSynbreeOrganizationSchema(), buildKileleOrganizationSchema(), buildCvDocumentSchema()],
 }
 
 const about = {
@@ -141,6 +142,7 @@ const about = {
       }),
     }),
   },
+  jsonLd: buildCvDocumentSchema(),
 }
 
 const experience = {
@@ -568,6 +570,8 @@ export function allSeoPaths() {
 export function sitemapPaths() {
   return [
     ...indexables.map((o) => ({ path: o.path, lastmod: o.lastmod, image: o.sitemapImage })),
+    // The hosted CV is a standalone indexable asset, not a prerendered route.
+    { path: profile.cvPath, lastmod: profile.cvUpdated },
     ...projects
       .filter((p) => p.featured)
       .map((p) => ({

@@ -127,6 +127,30 @@ export function repoLanguage(stack) {
   return stack.find((s) => CODE_LANGUAGES.includes(s)) || 'TypeScript'
 }
 
+/**
+ * The CV is a first-class document, not just a download: the PDF is linked
+ * from every page, listed in sitemap.xml and described here so search engines
+ * can associate the file with the Person entity and index its text.
+ */
+export function buildCvDocumentSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${SITE_URL}${profile.cvPath}#document`,
+    name: `${profile.name} — Curriculum Vitae (CV)`,
+    description:
+      'CV of Fredrick Onyango — founder of Synbree and full-stack, backend and AI/ML engineer based in Kenya. Experience, projects, technical skills and education.',
+    url: `${SITE_URL}${profile.cvPath}`,
+    encodingFormat: 'application/pdf',
+    about: personRef,
+    author: personRef,
+    dateModified: profile.cvUpdated,
+    inLanguage: 'en-KE',
+    keywords:
+      'Fredrick Onyango CV, curriculum vitae, software engineer Kenya, full-stack developer, backend engineer, AI/ML engineer, Synbree',
+  }
+}
+
 export function buildBlogPostingSchema(post) {
   return {
     '@context': 'https://schema.org',

@@ -150,6 +150,7 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 - **Lab:** https://fredrickonyango.vercel.app/lab
 - **Blog:** https://fredrickonyango.vercel.app/blog
 - **Contact:** https://fredrickonyango.vercel.app/contact
+- **CV (PDF):** https://fredrickonyango.vercel.app/Fredrick-Onyango-CV.pdf
 - **Synbree (company):** https://synbree.vercel.app
 
 ## Services — Hire Fredrick Onyango
@@ -159,6 +160,7 @@ End-to-end AI-powered CBC learning platform. RAG pipeline design, React/TypeScri
 
 ## Structured Data Available
 - Person (Fredrick Onyango)
+- DigitalDocument (CV PDF)
 - Organization (Fredrick Onyango)
 - Organization (Synbree, synbree.vercel.app — founder: Fredrick Onyango)
 - Organization (Kilele Archade, kilelearchade.co.ke — founder: Fredrick Onyango)

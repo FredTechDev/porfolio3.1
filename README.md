@@ -54,7 +54,7 @@ Search the repo for `TODO`. In particular:
 - [ ] Final domain: `src/data/site.js` (`SITE_URL`) feeds the head tags,
       structured data and the generated sitemap; `public/robots.txt` and
       `public/llms.txt` still name it by hand
-- [ ] Real CV → replace `public/Fredrick-Onyango-CV.pdf`
+- [x] Real CV → `public/Fredrick-Onyango-CV.pdf` (indexed via sitemap + DigitalDocument schema)
 - [ ] Real project screenshots → replace `ProjectVisual` placeholders
       (`public/images/`)
 - [ ] Verify all dates in Experience; only genuine achievements

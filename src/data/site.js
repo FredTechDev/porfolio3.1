@@ -18,6 +18,9 @@ export const profile = {
   email: "onyangofred1005@gmail.com",
   whatsapp: "https://wa.me/254729534077",
   cvPath: "/Fredrick-Onyango-CV.pdf",
+  // Date the hosted CV was last replaced. Feeds sitemap lastmod and the
+  // DigitalDocument schema so crawlers know when the PDF changed.
+  cvUpdated: "2026-11-04",
   github: "https://github.com/FredTechDev", // TODO: verify username
   linkedin: "https://ke.linkedin.com/in/fredrick-onyango-424447372",
   facebook: "https://www.facebook.com/profile.php?id=61590518607345",
