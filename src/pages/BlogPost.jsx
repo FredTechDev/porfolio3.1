@@ -19,7 +19,7 @@ export default function BlogPost() {
   const category = categoryForPost(post)
 
   return (
-    <div className="container" style={{ paddingBlock: 'clamp(2.5rem,6vw,4rem) 4rem' }}>
+    <div className="container" style={{ paddingBlock: 'clamp(1.5rem,3vw,2.25rem) 4rem' }}>
       <article className="article">
         <p className="section-kicker">
           <Link to="/blog">Blog</Link> /{' '}
